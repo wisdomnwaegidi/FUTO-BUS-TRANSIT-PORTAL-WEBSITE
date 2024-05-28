@@ -1,0 +1,19 @@
+{
+  "tickets": [
+    {
+      "id": { "$uuid": "random-uuid-here" },
+      "location": "random-location-here",
+      "destination": "random-destination-here"
+    },
+    {
+      "id": { "$uuid": "random-uuid-here" },
+      "location": "random-location-here",
+      "destination": "random-destination-here"
+    },
+    {
+      "id": { "$uuid": "random-uuid-here" },
+      "location": "random-location-here",
+      "destination": "random-destination-here"
+    }
+  ]
+}

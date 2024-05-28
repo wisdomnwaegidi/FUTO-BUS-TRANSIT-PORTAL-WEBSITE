@@ -1,0 +1,118 @@
+{
+    "workbench.editor.untitled.hint": "hidden",
+    "liveServer.settings.donotShowInfoMsg": true,
+    "vscode-edge-devtools.mirrorEdits": true,
+    "vscode-edge-devtools.webhint": false,
+    "css.format.spaceAroundSelectorSeparator": true,
+    "html-css-class-completion.enableEmmetSupport": true,
+    "[javascript]": {
+      "editor.maxTokenizationLineLength": 2500,
+      "editor.defaultFormatter": "esbenp.prettier-vscode"
+    },
+    "vscode-edge-devtools.fallbackRevision": "@22972d25db820838a94def61dc345b1a7e9c095a",
+    "liveSassCompile.settings.excludeList": ["**/node_modules/**", ".vscode/**"],
+    "liveSassCompile.settings.autoprefix": [],
+    "liveSassCompile.settings.generateMap": true,
+    "liveSassCompile.settings.formats": [
+      {
+        "format": "compressed",
+        "extensionName": ".css",
+        "savePath": "/fullstack/assets/css"
+      }
+    ],
+    "liveServer.settings.donotVerifyTags": true,
+    "json.schemas": [
+      {
+        "fileMatch": ["/package.json"],
+        "url": "https://json.schemastore.org/package",
+        "schema": true
+      }
+    ],
+    "[scss]": {
+      "editor.defaultFormatter": "esbenp.prettier-vscode"
+    },
+    "editor.formatOnSave": true,
+    "prettyxml.settings.formatOnSave": true,
+    "[html]": {
+      "editor.defaultFormatter": "esbenp.prettier-vscode"
+    },
+    "[css]": {
+      "editor.defaultFormatter": "esbenp.prettier-vscode"
+    },
+    "[jsonc]": {
+      "editor.quickSuggestions": {
+        "strings": true
+      },
+      "editor.suggest.insertMode": "replace",
+      "editor.defaultFormatter": "esbenp.prettier-vscode"
+    },
+    "[json]": {
+      "breadcrumbs.showArrays": true,
+  
+      "editor.quickSuggestions": {
+        "strings": true
+      },
+      "editor.suggest.insertMode": "replace",
+      "editor.defaultFormatter": "esbenp.prettier-vscode"
+    },
+    "workbench.colorTheme": "Atom One Dark",
+    "html-css-class-completion.CSSLanguages": ["css", "sass", "scss", "less"],
+    "html-css-class-completion.JavaScriptLanguages": [
+      "javascript",
+      "javascriptreact",
+      "typescriptreact"
+    ],
+    "json.schemaDownload.enable": true,
+    "editor.stickyScroll.enabled": true,
+    "liveServer.settings.root": "/",
+    "tabnine.experimentalAutoImports": true,
+    "[javascriptreact]": {
+      "editor.defaultFormatter": "vscode.typescript-language-features"
+    },
+    "launch": {
+      "inputs": [],
+      "configurations": [],
+      "compounds": []
+    },
+    "editor.linkedEditing": true,
+    "liveSassCompile.settings.includeItems": [],
+    "editor.accessibilitySupport": "off",
+    "debug.javascript.debugByLinkOptions": "on",
+    "eslint.debug": true,
+    "eslint.lintTask.enable": true,
+    "eslint.format.enable": true,
+    "prettier.singleQuote": true,
+    "livereload.debug": true,
+    "debug.allowBreakpointsEverywhere": true,
+    "terminal.integrated.defaultProfile.windows": "Command Prompt",
+    "workbench.editorAssociations": {
+      "*.ttf": "default"
+    },
+    "terminal.integrated.profiles.windows": {
+      "PowerShell": {
+        "source": "PowerShell",
+        "icon": "terminal-powershell"
+      },
+      "Command Prompt": {
+        "path": [
+          "${env:windir}\\Sysnative\\cmd.exe",
+          "${env:windir}\\System32\\cmd.exe"
+        ],
+        "args": [],
+        "icon": "terminal-cmd"
+      },
+      "Git Bash": {
+        "source": "Git Bash"
+      },
+      "Windows PowerShell": {
+        "path": "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe"
+      }
+    },
+    "php.validate.executablePath": "",
+    "files.autoSave": "afterDelay",
+    "[python]": {
+      "editor.formatOnType": true
+    },
+    "tailpile.browsers": []
+  }
+  
