@@ -1,6 +1,5 @@
 const express = require("express");
-const controller = require("../controller/controller");
-const verifyToken = require("../auth/authenticated");
+// const verifyToken = require("../auth/authenticated");
 const {
   registerUserValidator,
   loginUserValidator,
@@ -12,13 +11,14 @@ const {
   logout,
   submit,
   tickets,
+  requireAuth,
 } = require("../controller/controller");
 const { validationResult } = require("express-validator");
 
 const router = express.Router();
 
 router.get("/", (req, res) => {
-  res.render("index");
+  res.render("index", { loggedIn: res.locals.loggedIn });
 });
 
 router.get("/charter", (req, res) => {
@@ -33,15 +33,11 @@ router.get("/route", (req, res) => {
 router.get("/driver", (req, res) => {
   res.render("driver");
 });
-router.get("/login", (req, res) => {
-  res.render("login", { errors: [], data: {} });
-});
+
 router.get("/FAQ", (req, res) => {
   res.render("FAQ");
 });
-router.get("/register", (req, res) => {
-  res.render("register", { errors: [], data: {} });
-});
+
 router.get("/contact", (req, res) => {
   res.render("contact");
 });
@@ -51,19 +47,9 @@ router.get("/privacypolicy", (req, res) => {
 router.get("/tickets", (req, res) => {
   res.render("tickets");
 });
-router.get("/dashboard", (req, res) => {
-  res.render("dashboard");
-});
 
-router.post("/register", registerUserValidator, (req, res, next) => {
-  const errors = validationResult(req);
-  if (!errors.isEmpty()) {
-    return res.status(400).render("register", {
-      errors: errors.array(),
-      data: req.body,
-    });
-  }
-  registerUser(req, res, next);
+router.get("/login", (req, res) => {
+  res.render("login", { errors: [], data: {} });
 });
 
 router.post("/login", loginUserValidator, (req, res, next) => {
@@ -77,12 +63,36 @@ router.post("/login", loginUserValidator, (req, res, next) => {
   loginUser(req, res, next);
 });
 
+router.get("/register", (req, res) => {
+  res.render("register", { errors: [], data: {} });
+});
+
+router.post("/register", registerUserValidator, (req, res, next) => {
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) {
+    return res.status(400).render("register", {
+      errors: errors.array(),
+      data: req.body,
+    });
+  }
+  registerUser(req, res, next);
+});
+
 router.get("/logout", logout);
+
+router.get("/dashboard", requireAuth, dashboard);
+
 router.post("/api/submit", submit);
-router.get("/api/auth/dashboard", verifyToken, dashboard);
+router.post("/tickets/${value}/:id", tickets);
 
 module.exports = router;
 
+// protected route
+/* router.get("/api/protected-route", verifyToken, (req, res) => {
+  res.status(200).json({ message: "This is a protected route" });
+}); */
+
+// router.get("/api/auth/dashboard", verifyToken, dashboard);
 /*router.get('/api/tickets/:region', controller.tickets);
  router.get('/api/user', controller.find);
 router.put('/api/user/:id', controller.update);

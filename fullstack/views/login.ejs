@@ -85,17 +85,6 @@
             </button>
           </div>
           <% }) %> <% } %>
-          <div
-            id="msgcontainer"
-            style="
-              background-color: crimson;
-              text-align: center;
-              padding: 10px;
-              display: none;
-              border-radius: 5px;
-              color: white;
-              margin-bottom: 10px;
-            "></div>
 
           <form action="/login" method="post" class="loginForm" id="login-form">
             <div class="input__forms__login">
@@ -133,13 +122,13 @@
             </div>
             <button type="submit" id="sbtn" class="pwordbtn">
               Login
-              <div
+              <span
                 id="spinner"
                 class="spinner-border spinner-border-sm"
                 role="status"
                 style="display: none">
                 <span class="sr-only">Loading...</span>
-              </div>
+              </span>
             </button>
           </form>
         </main>

@@ -1,25 +1,15 @@
-const { body } = require("express-validator");
+const { check } = require("express-validator");
 
 exports.registerUserValidator = [
-  body("firstName")
-    .notEmpty()
-    .withMessage("First name is required")
-    .isAlpha()
-    .withMessage("First name must only contain letters"),
-
-  body("lastName")
-    .notEmpty()
-    .withMessage("Last name is required")
-    .isAlpha()
-    .withMessage("Last name must only contain letters"),
-
-  body("email")
+  check("firstName").notEmpty().withMessage("First name is required"),
+  check("lastName").notEmpty().withMessage("Last name is required"),
+  check("email")
     .notEmpty()
     .withMessage("Email is required")
     .isEmail()
     .withMessage("Invalid email address"),
 
-  body("phoneNumber")
+  check("phoneNumber")
     .notEmpty()
     .withMessage("Phone number is required")
     .matches(/^[+]*[(]{0,1}[0-9]{1,4}[)]{0,1}[-\s./0-9]*$/)
@@ -27,16 +17,16 @@ exports.registerUserValidator = [
     .isLength({ min: 11, max: 11 })
     .withMessage("Phone number must be 11 digits"),
 
-  body("location").notEmpty().withMessage("Location is required"),
+  check("location").notEmpty().withMessage("Location is required"),
 
-  body("password")
+  check("password")
     .notEmpty()
     .withMessage("Password is required")
-    .isLength({ min: 6 })
-    .withMessage("Password must be at least 6 characters long"),
+    .isLength({ min: 9 })
+    .withMessage("Password must be at least 9 characters long"),
 ];
 
 exports.loginUserValidator = [
-  body("email").isEmail().withMessage("Please enter a valid email").escape(),
-  body("password").not().isEmpty().withMessage("Password is required").escape(),
+  check("email").isEmail().withMessage("Please enter a valid email").escape(),
+  check("password").not().isEmpty().withMessage("Password is required").escape(),
 ];

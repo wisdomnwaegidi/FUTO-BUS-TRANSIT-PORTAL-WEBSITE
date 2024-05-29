@@ -55,45 +55,46 @@
           <h4 class="header_1">Become a Shuttler</h4>
           <p>Already have an account? <a href="/login">Login</a></p>
         </div>
-        
+
         <div class="error11"></div>
-        <div class="toast"></div>
 
-        <% if (errors && errors.length > 0) { %>
-          <div id="msgcontainer">
-            <% errors.forEach(error => { %>
-              <p class="alert alert-danger" role="alert"><%= error.msg %></p>
-            <% }) %>
-          </div>
-        <% } %>
+        <% if (errors && errors.length > 0) { %> <% errors.forEach(error => { %>
+        <div
+          id="error-alert-<%= error.param %>"
+          class="alert alert-warning alert-dismissible fade show text-center"
+          role="alert">
+          <%= error.msg %>
+          <button
+            type="button"
+            class="close"
+            data-dismiss="alert"
+            aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <% }) %> <% } %>
 
-        <form
-          action="register"
-          class="form_action"
-          id="form"
-          method="post">
+        <form action="register" class="form_action" id="form" method="post">
           <div class="div__0">
             <div class="div__1">
-              <label for="inputFirstName" class="labelfirstname"
-                >First name</label
-              >
+              <label for="firstName" class="labelfirstname">First name</label>
               <input
                 type="text"
                 name="firstName"
                 class="input_1 error"
-                id="inputFirstName"
+                value="<%= data && data.firstName ? data.firstName : '' %>"
+                id="firstName"
                 placeholder="First Name" />
             </div>
 
             <div class="div__2">
-              <label for="inputLastName" class="labelsecondname"
-                >Last name</label
-              >
+              <label for="lastName" class="labelsecondname">Last name</label>
               <input
                 type="text"
                 name="lastName"
                 class="input_2 error"
-                id="inputLastName"
+                value="<%= data && data.lastName ? data.lastName : '' %>"
+                id="lastName"
                 placeholder="Last Name" />
             </div>
           </div>
@@ -104,8 +105,9 @@
               type="email"
               name="email"
               class="input_3 error"
+              value="<%= data && data.email ? data.email : '' %>"
               placeholder="Sample@gmail.com"
-              id="inputEmail" />
+              id="email" />
           </div>
 
           <div class="div__4">
@@ -113,21 +115,23 @@
             <input
               type="tel"
               name="phoneNumber"
-              id="inputNumber"
+              id="phoneNumber"
               class="input_4 error"
+              value="<%= data && data.phoneNumber ? data.phoneNumber : '' %>"
               placeholder="07034344428" />
           </div>
 
           <div class="div__5">
+
             <label for="inputBustop" class="bustop">Your Bus Stop</label>
-            <select name="location" id="inputBustop" class="input_5 error">
-              <option disabled selected hidden>Select Location</option>
-              <option>Ikenegbu</option>
-              <option>Orji</option>
-              <option>Wetheral</option>
-              <option>World Bank</option>
-              <option>Amakohia</option>
-              <option>Control</option>
+            <select name="location" id="location" class="input_5 error">
+              <option hidden <% if (!data.location) { %> selected <% } %> disabled>Select Location</option>
+              <option <% if (data.location === 'Ikenegbu') { %> selected <% } %> value="Ikenegbu">Ikenegbu</option>
+              <option <% if (data.location === 'Orji') { %> selected <% } %> value="Orji">Orji</option>
+              <option <% if (data.location === 'Wetheral') { %> selected <% } %> value="Wetheral">Wetheral</option>
+              <option <% if (data.location === 'World Bank') { %> selected <% } %> value="World Bank">World Bank</option>
+              <option <% if (data.location === 'Amakohia') { %> selected <% } %> value="Amakohia">Amakohia</option>
+              <option <% if (data.location === 'Control') { %> selected <% } %> value="Control">Control</option>
             </select>
           </div>
 
@@ -138,11 +142,13 @@
               name="password"
               id="password"
               class="input_6 error"
+              value="<%= data && data.password ? data.password : '' %>"
               placeholder="password" />
           </div>
 
           <div class="div__7">
-            <input type="checkbox" class="toggle__password" id="toggle"/>Show Password
+            <input type="checkbox" class="toggle__password" id="toggle" />Show
+            Password
           </div>
 
           <button type="submit" class="rgstbtn" id="register">Register</button>

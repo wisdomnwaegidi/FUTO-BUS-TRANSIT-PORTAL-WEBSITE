@@ -48,16 +48,20 @@ document.addEventListener("DOMContentLoaded", function () {
     const isEmailValid = validateEmail();
     const isPasswordValid = validatePassword();
 
-    if (isEmailValid && isPasswordValid) {
+    const buttonUpdate = () => {
       spinner.style.display = "inline-block";
-      submitButton.textContent = "Please wait..."; // Change button text to "Please wait..."
+      submitButton.textContent = "Please wait...";
+    };
+
+    if (isEmailValid && isPasswordValid) {
+      buttonUpdate();
       try {
-        await login();
         form.submit(); // Submit the form after login
+        await login();
       } catch (error) {
         console.log(error);
       } finally {
-        submitButton.textContent = "Login"; // Reset button text after submission
+        submitButton.textContent = "Login"; 
         spinner.style.display = "none";
       }
     } else {

@@ -55,16 +55,42 @@
 
           <div class="sign_btn-container">
             <ul class="navbar-nav">
+              <% if (loggedIn) { %>
+              <li class="nav-item">
+                <!-- Display the user image -->
+                <img src="/user/image" alt="User Image" class="user-image" />
+                <!-- Display links for logout and edit profile -->
+                <div class="dropdown">
+                  <button
+                    class="btn btn-secondary dropdown-toggle"
+                    type="button"
+                    id="dropdownMenuButton"
+                    data-toggle="dropdown"
+                    aria-haspopup="true"
+                    aria-expanded="false">
+                    User Menu
+                  </button>
+                  <div
+                    class="dropdown-menu"
+                    aria-labelledby="dropdownMenuButton">
+                    <a class="dropdown-item" href="/logout">Logout</a>
+                    <a class="dropdown-item" href="/profile/edit"
+                      >Edit Profile</a
+                    >
+                  </div>
+                </div>
+              </li>
+              <% } else { %>
               <li class="nav-item nav__login">
                 <a href="/login" class="nav-link">Login</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link nav__sign--up" href="/register">
-                  Register
-                </a>
+                <a class="nav-link nav__sign--up" href="/register">Register</a>
               </li>
+              <% } %>
             </ul>
           </div>
+          
         </div>
       </nav>
     </div>

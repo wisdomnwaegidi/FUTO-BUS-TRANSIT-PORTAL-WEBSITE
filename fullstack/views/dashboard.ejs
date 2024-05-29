@@ -95,7 +95,9 @@
                 <li class="nav-item">
                   <% if (user && user.firstName || user.lastName) { %>
                   <p class="nav-link dashboard user">
-                    Welcome <span class="user__color"><%= user.firstName %></span> <%= user.lastName %>
+                    Welcome
+                    <span class="user__color"><%= user.firstName %></span> <%=
+                    user.lastName %>
                   </p>
                   <small class="nav-link dashboard little"
                     ><%= user.email %></small
@@ -113,7 +115,7 @@
                     <div class="logged">
                       <div class="logline"></div>
                       <div class="logi">
-                        <span><a class="myaccount" href="">my account</a></span>
+                        <span><a class="myaccount" href="/">my account</a></span>
                         <span
                           ><a class="login" href="/logout" id="logout"
                             >logout</a
@@ -136,15 +138,15 @@
       <div class="container-fluid_dashboard">
         <!-- input fields -->
         <div class="discover__shuttle__dashboard">
-          <h1 class="dashboard__username">Hello,<%= user.firstName%></h1>
+          <h1 class="dashboard__username">Hello, <span class="" style="color: #08af48;"><%= user.firstName%></span></h1>
           <h3 class="dashboard__h3">Discover shuttles that go your way</h3>
           <div class="formsubmit__dashboard">
-            <form action="/submit" method="post" id="userdashboardform">
+            <form action="/location" method="post" id="myForm">
               <div class="fields">
                 <input
                   type="search"
                   name="pickup"
-                  id="pickup"
+                  id="input_1"
                   placeholder="From: Pickup Location"
                   part="Pickup location"
                   autocomplete="false"
@@ -282,7 +284,7 @@
             </form>
           </div>
           <p>
-            <a href="/route" class="anchor_shuttle"> View alFl Routes</a>
+            <a href="/route" class="anchor_shuttle"> View all Routes</a>
           </p>
         </div>
 
@@ -298,6 +300,28 @@
       <!-- end images con section -->
     </section>
     <!-- end slider section -->
+
+    <!-- display results  -->
+    <div class="alldisplay">
+      <div class="display__results">
+        <div class="bgfind">
+          <span class="findlocations">Find by Location</span>
+        </div>
+        <div class="display">
+          <div class="bgdisplay"></div>
+        </div>
+      </div>
+
+      <div class="display__results1">
+        <div class="bgfind1">
+          <span class="findlocations1">Find by Location</span>
+        </div>
+        <div class="display1">
+          <div class="bgdisplay1"></div>
+        </div>
+      </div>
+    </div>
+    <!-- end display results -->
 
     <!-- jQuery -->
     <script src="/js/jquery-3.4.1.min.js"></script>

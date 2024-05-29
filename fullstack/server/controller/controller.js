@@ -38,7 +38,21 @@ exports.registerUser = async (req, res) => {
 
     const data = await user.save();
 
-    return res.status(201).render("dashboard", { user: data });
+    req.session.user = data;
+
+    req.session.save((err) => {
+      if (err) {
+        console.error("Error saving session:", err);
+        return res.status(500).render("register", {
+          errors: [{ msg: "Server error while saving session" }],
+          data: req.body,
+        });
+      }
+      // Session saved successfully
+      console.log("Session saved successfully");
+    });
+
+    res.redirect("/dashboard");
   } catch (error) {
     console.error("Error creating user:", error);
     return res.status(500).render("register", {
@@ -70,20 +84,12 @@ exports.loginUser = async (req, res) => {
       });
     }
 
-    const token = jwt.sign({ userId: user._id }, process.env.JWT_SECRET_KEY, {
-      expiresIn: "1h",
-    });
-
-    res.cookie("auth_token", token, {
-      httpOnly: true,
-      secure: process.env.NODE_ENV === "production",
-      sameSite: "Strict",
-      maxAge: 3600000,
-    });
+    // Set session user data
+    req.session.user = user;
 
     return res.status(200).render("dashboard", { user });
   } catch (error) {
-    console.error(error);
+    console.error("Error logging in:", error);
     return res.status(500).render("login", {
       errors: [{ msg: "Internal server error" }],
       data: req.body,
@@ -91,26 +97,37 @@ exports.loginUser = async (req, res) => {
   }
 };
 
+exports.logout = (req, res) => {
+  req.session.destroy((err) => {
+    if (err) {
+      console.error("Error destroying session:", err);
+      return res.status(500).redirect("/");
+    }
+
+    res.clearCookie("connect.sid");
+    res.redirect("/");
+  });
+};
+
+// Middleware to protect the dashboard route
+exports.requireAuth = (req, res, next) => {
+  if (req.session && req.session.user) {
+    return next();
+  }
+  return res.redirect("/login");
+};
+
 exports.dashboard = async (req, res) => {
   try {
-    const user = await Userdb.findById(req.userId).select("-password");
-    res.status(200).json(user);
+    const user = await Userdb.findById(req.session.user._id).select(
+      "-password"
+    );
+    res.status(200).render("dashboard", { user });
   } catch (error) {
+    console.error("Error fetching user data:", error);
     res.status(500).json({ message: "Internal server error" });
   }
 };
-
-exports.logout =
-  ("/logout",
-  (req, res) => {
-    res.cookie("auth_token", "", {
-      expires: new Date(0),
-      httpOnly: true,
-      secure: true,
-      sameSite: "Strict",
-    });
-    res.redirect("/login");
-  });
 
 // Endpoint to handle form submission
 exports.submit = async (req, res) => {
