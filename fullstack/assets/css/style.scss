@@ -1574,29 +1574,19 @@ a:focus {
           justify-content: flex-start;
         }
       }
-    }
 
-    .rgstbtn {
-      display: inline-block;
-      margin-bottom: 10px;
-      outline-color: none;
-      padding: 10px;
-      outline: none !important;
-      border: none;
-      border-radius: 10px !important;
-      margin-right: 10px;
-      background-color: $secondaryColor;
-      font-weight: 600;
-      margin-top: 20px;
-      width: 100%;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      cursor: pointer;
-
-      &:hover {
+      .rgstbtn {
+        width: 100%;
+        padding: 15px;
+        background: $secondaryColor;
         color: $white;
-        transition: 0.1s ease-in;
+        outline: none;
+        border: none;
+        margin: 20px 0;
+        font-size: 1rem;
+        font-weight: 600;
+        border-radius: 10px;
+        cursor: pointer;
       }
     }
   }

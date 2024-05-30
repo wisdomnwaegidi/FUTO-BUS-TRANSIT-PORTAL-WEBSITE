@@ -1,8 +1,24 @@
 const Userdb = require("../model/userModel");
 const bcrypt = require("bcrypt");
-const location = require("../model/modelforautocomplete");
-const Ticket = require("../model/ticketmodel");
-const jwt = require("jsonwebtoken");
+const ShuttleForm = require("../model/shuttleFormSchema");
+
+async function fetchTickets(form) {
+  // This is a placeholder function. Replace with actual logic to fetch tickets.
+  return [
+    {
+      busNumber: "123",
+      departureTime: "08:00 AM",
+      arrivalTime: "10:00 AM",
+      price: "$10",
+    },
+    {
+      busNumber: "456",
+      departureTime: "09:00 AM",
+      arrivalTime: "11:00 AM",
+      price: "$12",
+    },
+  ];
+}
 
 exports.registerUser = async (req, res) => {
   const { firstName, lastName, email, phoneNumber, location, password } =
@@ -42,17 +58,15 @@ exports.registerUser = async (req, res) => {
 
     req.session.save((err) => {
       if (err) {
-        console.error("Error saving session:", err);
+        console.log("Error saving session:", err);
         return res.status(500).render("register", {
           errors: [{ msg: "Server error while saving session" }],
           data: req.body,
         });
       }
-      // Session saved successfully
       console.log("Session saved successfully");
+      return res.status(201).render("dashboard", { user: data });
     });
-
-    res.redirect("/dashboard");
   } catch (error) {
     console.error("Error creating user:", error);
     return res.status(500).render("register", {
@@ -84,10 +98,19 @@ exports.loginUser = async (req, res) => {
       });
     }
 
-    // Set session user data
     req.session.user = user;
 
-    return res.status(200).render("dashboard", { user });
+    req.session.save((err) => {
+      if (err) {
+        console.error("Error saving session:", err);
+        return res.status(500).render("login", {
+          errors: [{ msg: "Server error while saving session" }],
+          data: req.body,
+        });
+      }
+
+      return res.status(200).render("dashboard", { user });
+    });
   } catch (error) {
     console.error("Error logging in:", error);
     return res.status(500).render("login", {
@@ -109,7 +132,6 @@ exports.logout = (req, res) => {
   });
 };
 
-// Middleware to protect the dashboard route
 exports.requireAuth = (req, res, next) => {
   if (req.session && req.session.user) {
     return next();
@@ -129,54 +151,28 @@ exports.dashboard = async (req, res) => {
   }
 };
 
-// Endpoint to handle form submission
-exports.submit = async (req, res) => {
-  // Extract the fields from the request body
-  const { input1, input2, dateTime } = req.body;
-
-  // Validate the required fields
-  if (!input1 || !input2 || !dateTime) {
-    return res.status(400).send({ message: "All fields are required" });
-  }
-
+exports.findTicket = async (req, res) => {
   try {
-    // Create a new Location object
-    const locationOne = new location({
-      input1,
-      input2,
-      dateTime,
-    });
-
-    const ticketsAvailable = tickets();
-
-    // Save the new location to the database
-    const locationData = await locationOne.save();
-
-    // Send a success response
-    console.log("Location created:", locationData);
-    return res.render("tickets", { locationOne: locationData });
+    const shuttleForm = new ShuttleForm(req.body);
+    await shuttleForm.save();
+    res.redirect(`/tickets/${shuttleForm._id}`);
   } catch (error) {
-    console.log(error);
-    return res
-      .status(500)
-      .send({ message: "Error occurred while creating location" });
+    res.status(400).render("/", {
+      errors: [{ msg: "internal server error" }],
+      data: req.body,
+    });
   }
 };
 
-// Define API endpoint to get tickets for a region
-exports.tickets = (req, res) => {
-  const region = req.params.region; // Get the region parameter from the URL
-  // Query MongoDB to fetch tickets for the specified region
-  Ticket.find({ region: region })
-    .then((tickets) => {
-      // Return the tickets as a JSON response
-      res.json(tickets);
-    })
-    .catch((error) => {
-      console.error("Failed to fetch tickets from MongoDB:", error);
-      res.status(500).json({ message: "Failed to fetch tickets" });
-    });
-  // Return the tickets as a JSON response
-  const tickets = getTicketsForRegion(region); // Replace with your own logic to fetch tickets
-  res.json(tickets);
+exports.tickets = async (req, res) => {
+  try {
+    const form = await ShuttleForm.findById(req.params.id);
+    if (!form) {
+      return res.status(404).send("Form not found");
+    }
+    // For demonstration, we'll just send the form data. Replace this with your logic to fetch tickets.
+    res.render("tickets", { form });
+  } catch (error) {
+    res.status(400).send(error.message);
+  }
 };

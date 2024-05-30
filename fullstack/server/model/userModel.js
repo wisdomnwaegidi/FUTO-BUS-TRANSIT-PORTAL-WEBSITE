@@ -2,10 +2,10 @@ const mongoose = require("mongoose");
 
 const formSchema = new mongoose.Schema(
   {
-    userId: {
+   /*  userId: {
       type: mongoose.Schema.Types.ObjectId,
       ref: 'User',
-    },
+    }, */
     firstName: {
       type: String,
       required: true,
@@ -40,7 +40,6 @@ const formSchema = new mongoose.Schema(
   { timestamps: true }
 );
 
-// Ensure email and phone number are unique and indexed
 formSchema.index({ email: 1 }, { unique: true });
 formSchema.index({ phoneNumber: 1 }, { unique: true });
 

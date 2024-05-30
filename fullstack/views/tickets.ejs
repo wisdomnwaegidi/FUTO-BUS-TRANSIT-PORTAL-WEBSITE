@@ -8,8 +8,7 @@
     <!-- Mobile Metas -->
     <meta
       name="viewport"
-      content="width=device-width, initial-scale=1, shrink-to-fit=no"
-    />
+      content="width=device-width, initial-scale=1, shrink-to-fit=no" />
     <!-- Site Metas -->
     <link rel="icon" href="favicon/logo.ico" type="image/gif" />
     <meta name="keywords" content="" />
@@ -24,8 +23,7 @@
     <!-- fonts style -->
     <link
       href="https://fonts.googleapis.com/css?family=Poppins:400,600,700&display=swap"
-      rel="stylesheet"
-    />
+      rel="stylesheet" />
 
     <!-- font awesome style -->
     <link href="css/font-awesome.min.css" rel="stylesheet" />
@@ -35,10 +33,68 @@
 
     <!-- responsive style -->
     <link href="css/responsive.css" rel="stylesheet" />
-  </head>
 
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+      }
+      .container {
+        max-width: 800px;
+        margin: 0 auto;
+        padding: 20px;
+      }
+      .ticket-info {
+        border: 1px solid #ccc;
+        padding: 20px;
+        margin-top: 20px;
+      }
+      .ticket-info h2 {
+        margin-top: 0;
+      }
+      .ticket-info p {
+        margin: 5px 0;
+      }
+    </style>
+  </head>
   <body>
-    <h1>Success</h1>
-    <p>You've submitted it successfully!</p>
+    <div class="container">
+      <h1>Tickets for Your Trip</h1>
+
+      <div class="ticket-info">
+        <h2>Trip Details</h2>
+        <p><strong>From:</strong> <%= form.from %></p>
+        <p><strong>To:</strong> <%= form.to %></p>
+        <p><strong>Trip Type:</strong> <%= form.tripType %></p>
+
+        <% if (form.tripType === 'Subscribe') { %>
+        <h3>Subscription Details</h3>
+        <p><strong>Booking Type:</strong> <%= form.bookingType %></p>
+        <p><strong>Departure Time:</strong> <%= form.departureTime %></p>
+        <p><strong>Select Days:</strong> <%= form.selectDays.join(', ') %></p>
+        <p><strong>Duration in Weeks:</strong> <%= form.durationInWeeks %></p>
+        <% } %>
+      </div>
+
+      <!-- Add your ticket display logic here -->
+      <!-- Assuming you have an array of tickets, we'll display them here -->
+
+      <div class="ticket-info">
+        <h2>Available Tickets</h2>
+        <% if (tickets && tickets.length > 0) { %>
+        <ul>
+          <% tickets.forEach(ticket => { %>
+          <li>
+            <p><strong>Bus Number:</strong> <%= ticket.busNumber %></p>
+            <p><strong>Departure Time:</strong> <%= ticket.departureTime %></p>
+            <p><strong>Arrival Time:</strong> <%= ticket.arrivalTime %></p>
+            <p><strong>Price:</strong> <%= ticket.price %></p>
+          </li>
+          <% }) %>
+        </ul>
+        <% } else { %>
+        <p>No tickets available for the selected route.</p>
+        <% } %>
+      </div>
+    </div>
   </body>
 </html>

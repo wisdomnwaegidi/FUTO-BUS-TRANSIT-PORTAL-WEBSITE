@@ -90,7 +90,6 @@
               <% } %>
             </ul>
           </div>
-          
         </div>
       </nav>
     </div>
@@ -104,12 +103,28 @@
       <div class="discover__shuttle">
         <h3 class="h3">Discover shuttles for your commute</h3>
         <div class="formsubmit">
-          <form action="/api/submit" id="myForm">
+          <% if (errors && errors.length > 0) { %> <% errors.forEach(error => {
+          %>
+          <div
+            id="error-alert-<%= error.param %>"
+            class="alert alert-warning alert-dismissible fade show text-center"
+            role="alert">
+            <%= error.msg %>
+            <button
+              type="button"
+              class="close"
+              data-dismiss="alert"
+              aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <% }) %> <% } %>
+          <form action="/find-tickets" id="myForm" method="post">
             <div class="fields">
               <input
                 type="search"
-                name="input1"
-                id="input_1"
+                name="from"
+                id="from"
                 placeholder="From: Pickup Location"
                 part="Pickup location"
                 class="input1"
@@ -117,8 +132,8 @@
 
               <input
                 type="search"
-                name="input2"
-                id="input_2"
+                name="to"
+                id="to"
                 placeholder="To: Arrival Bust stop"
                 part="To: Arrival Bust stop"
                 aria-label="Search" />

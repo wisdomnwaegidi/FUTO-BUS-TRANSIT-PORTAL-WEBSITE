@@ -5,3 +5,12 @@
               <option <% if (data.location === 'World Bank') { %> selected <% } %>>World Bank</option>
               <option <% if (data.location === 'Amakohia') { %> selected <% } %>>Amakohia</option>
               <option <% if (data.location === 'Control') { %> selected <% } %>>Control</option></select>
+
+
+              <option hidden <% if (!data.location) { %> selected <% } %> disabled>Select Location</option>
+              <option <% if (data.location === 'Ikenegbu') { %> selected <% } %> value="Ikenegbu">Ikenegbu</option>
+              <option <% if (data.location === 'Orji') { %> selected <% } %> value="Orji">Orji</option>
+              <option <% if (data.location === 'Wetheral') { %> selected <% } %> value="Wetheral">Wetheral</option>
+              <option <% if (data.location === 'World Bank') { %> selected <% } %> value="World Bank">World Bank</option>
+              <option <% if (data.location === 'Amakohia') { %> selected <% } %> value="Amakohia">Amakohia</option>
+              <option <% if (data.location === 'Control') { %> selected <% } %> value="Control">Control</option>

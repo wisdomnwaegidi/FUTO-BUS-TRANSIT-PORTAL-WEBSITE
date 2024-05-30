@@ -74,7 +74,7 @@
         </div>
         <% }) %> <% } %>
 
-        <form action="register" class="form_action" id="form" method="post">
+        <form action="/register" class="form_action" id="form" method="post">
           <div class="div__0">
             <div class="div__1">
               <label for="firstName" class="labelfirstname">First name</label>
@@ -122,8 +122,7 @@
           </div>
 
           <div class="div__5">
-
-            <label for="inputBustop" class="bustop">Your Bus Stop</label>
+            <label for="location" class="bustop">Your Bus Stop</label>
             <select name="location" id="location" class="input_5 error">
               <option hidden <% if (!data.location) { %> selected <% } %> disabled>Select Location</option>
               <option <% if (data.location === 'Ikenegbu') { %> selected <% } %> value="Ikenegbu">Ikenegbu</option>
@@ -150,8 +149,9 @@
             <input type="checkbox" class="toggle__password" id="toggle" />Show
             Password
           </div>
-
-          <button type="submit" class="rgstbtn" id="register">Register</button>
+          <button type="submit" id="sbtn" class="rgstbtn">
+          register
+          </button>
         </form>
       </div>
     </div>

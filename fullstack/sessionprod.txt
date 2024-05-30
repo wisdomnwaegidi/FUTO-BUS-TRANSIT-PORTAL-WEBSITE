@@ -1,4 +1,27 @@
-document.addEventListener("DOMContentLoaded", function () {
+const sess = {
+  secret: process.env.JWT_SECRET_KEY,
+  resave: false,
+  saveUninitialized: false,
+  store: MongoStore.create({
+    mongoUrl: "mongodb://localhost:27017/session_db",
+    collectionName: "sessions",
+  }),
+  cookie: {
+    sameSite: "strict",
+    httpOnly: true,
+  },
+};
+
+if (app.get("env") === "production") {
+  app.set("trust proxy", 1);
+  sess.cookie.secure = true;
+}
+
+app.use(session(sess));
+
+
+
+/* document.addEventListener("DOMContentLoaded", function () {
   const form = document.querySelector("#form");
   const inputs = form.querySelectorAll("input, select");
   const togglePassword = document.getElementById("toggle");
@@ -62,8 +85,8 @@ document.addEventListener("DOMContentLoaded", function () {
 
     if (allValid) {
       try {
-        await register();
         form.submit();
+        await register();
         form.reset();
       } catch (error) {
         console.error(error);
@@ -75,26 +98,18 @@ document.addEventListener("DOMContentLoaded", function () {
     const formData = {};
     inputs.forEach((input) => (formData[input.name] = input.value));
 
-    try {
-      const response = await fetch(`/register`, {
-        method: "POST",
-        credentials: "include",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(formData),
-      });
+    const response = await fetch(`/register`, {
+      method: "POST",
+      credentials: "include",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(formData),
+    });
 
-      const responseBody = await response.json();
-      if (!response.ok) {
-        throw new Error(responseBody.message);
-      } else {
-        console.log(responseBody);
-        // Redirect to dashboard
-        window.location.href = "/dashboard";
-      }
-    } catch (error) {
-      console.error(error);
+    const responseBody = await response.json();
+    if (!response.ok) {
+      throw new Error(responseBody.message);
     }
   };
 
@@ -104,3 +119,4 @@ document.addEventListener("DOMContentLoaded", function () {
       passwordToggle.type === "password" ? "text" : "password";
   });
 });
+ */

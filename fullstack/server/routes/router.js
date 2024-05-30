@@ -1,24 +1,24 @@
 const express = require("express");
-// const verifyToken = require("../auth/authenticated");
 const {
   registerUserValidator,
   loginUserValidator,
+  validateShuttleForm,
 } = require("../validators/useValidator");
 const {
   registerUser,
   loginUser,
   dashboard,
   logout,
-  submit,
   tickets,
   requireAuth,
+  findTicket,
 } = require("../controller/controller");
 const { validationResult } = require("express-validator");
 
 const router = express.Router();
 
 router.get("/", (req, res) => {
-  res.render("index", { loggedIn: res.locals.loggedIn });
+  res.render("index", { loggedIn: res.locals.loggedIn, errors: [], data: {} });
 });
 
 router.get("/charter", (req, res) => {
@@ -82,18 +82,21 @@ router.get("/logout", logout);
 
 router.get("/dashboard", requireAuth, dashboard);
 
-router.post("/api/submit", submit);
-router.post("/tickets/${value}/:id", tickets);
+router.post("/find-tickets", validateShuttleForm, (req, res, next) => {
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) {
+    return res.status(400).render("index", {
+      errors: errors.array(),
+      data: req.body,
+    });
+  }
+  findTicket(req, res, next);
+});
+
+router.get("/tickets/:id", tickets);
+
+router.post("/location", (req, res) => {
+  res.status(200).send(`<div>registered your request</div>`);
+});
 
 module.exports = router;
-
-// protected route
-/* router.get("/api/protected-route", verifyToken, (req, res) => {
-  res.status(200).json({ message: "This is a protected route" });
-}); */
-
-// router.get("/api/auth/dashboard", verifyToken, dashboard);
-/*router.get('/api/tickets/:region', controller.tickets);
- router.get('/api/user', controller.find);
-router.put('/api/user/:id', controller.update);
-router.delete('/api/user/:id', controller.delete); */

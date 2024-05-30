@@ -11,11 +11,17 @@ const router = require("./server/routes/router");
 const MongoStore = require("connect-mongo");
 
 dotenv.config();
-connectDB();
 
 const app = express();
 const PORT = Number(process.env.PORT) || 8081;
 
+app.use(cors());
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
+
+connectDB();
+
+app.use(cookieParser());
 app.use(
   session({
     secret: process.env.JWT_SECRET_KEY,
@@ -26,25 +32,12 @@ app.use(
       collectionName: "sessions",
     }),
     cookie: {
-      maxAge: null, // 24 hours in milliseconds 24 * 60 * 60 * 1000
+      maxAge: 24 * 60 * 60 * 1000, // 24 hours in milliseconds 24 * 60 * 60 * 1000
       httpOnly: true, // Ensures the cookie is sent only over HTTP(S), not client JavaScript
       secure: false, // Set to true if using HTTPS
     },
   })
 );
-app.use(morgan("tiny"));
-app.use(cors());
-app.use(cookieParser());
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true }));
-app.use(express.text());
-app.set("view engine", "ejs");
-
-app.use("/css", express.static(path.resolve(__dirname, "assets/css")));
-app.use("/images", express.static(path.resolve(__dirname, "assets/images")));
-app.use("/js", express.static(path.resolve(__dirname, "assets/js")));
-app.use("/favicon", express.static(path.resolve(__dirname, "assets/favicon")));
-app.use("/fonts", express.static(path.resolve(__dirname, "assets/fonts")));
 
 const isLoggedIn = (req, res, next) => {
   console.log("isLoggedIn middleware: req.session:", req.session);
@@ -57,6 +50,16 @@ const isLoggedIn = (req, res, next) => {
 };
 
 app.use(isLoggedIn);
+
+app.use(morgan("tiny"));
+
+app.set("view engine", "ejs");
+app.use("/css", express.static(path.resolve(__dirname, "assets/css")));
+app.use("/images", express.static(path.resolve(__dirname, "assets/images")));
+app.use("/js", express.static(path.resolve(__dirname, "assets/js")));
+app.use("/favicon", express.static(path.resolve(__dirname, "assets/favicon")));
+app.use("/fonts", express.static(path.resolve(__dirname, "assets/fonts")));
+
 app.use("/", router);
 
 app.use((err, req, res, next) => {
