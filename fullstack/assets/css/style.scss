@@ -101,6 +101,10 @@ body {
 .custom_nav-container {
   .navbar-nav {
     .nav-item {
+      .dropdown-menu {
+        right: 0;
+        left: auto;
+      }
       .nav-link {
         padding: 3px 15px;
         margin: 10px 15px;

@@ -2,10 +2,6 @@ const mongoose = require("mongoose");
 
 const formSchema = new mongoose.Schema(
   {
-   /*  userId: {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: 'User',
-    }, */
     firstName: {
       type: String,
       required: true,
@@ -18,11 +14,12 @@ const formSchema = new mongoose.Schema(
       type: String,
       required: true,
       unique: true,
-      match: [/.+\@.+\..+/, 'Please fill a valid email address'],
+      match: [/.+\@.+\..+/, "Please fill a valid email address"],
     },
     phoneNumber: {
       type: String,
       required: true,
+      unique: true, // Ensure this field is unique
     },
     location: {
       type: String,
@@ -36,12 +33,16 @@ const formSchema = new mongoose.Schema(
       type: Date,
       default: Date.now,
     },
+    profilePicture: {
+      type: String,
+      default: "/uploads/userimage.png",
+    },
+    address: {
+      type: String,
+    },
   },
   { timestamps: true }
 );
-
-formSchema.index({ email: 1 }, { unique: true });
-formSchema.index({ phoneNumber: 1 }, { unique: true });
 
 const Userdb = mongoose.model("Userdb", formSchema);
 module.exports = Userdb;

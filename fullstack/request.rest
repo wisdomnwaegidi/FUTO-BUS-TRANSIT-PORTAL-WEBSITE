@@ -1,3 +1,13 @@
-POST   http://localhost:5179/api/user
+POST   http://localhost:5179/register
 Content-Type: application/json
 
+{
+    "firstName" : "Wizzy",
+    "lastName" : "Nwaegidi",
+    "email": "wisdomnwaegidi@gmail.com",
+    "phoneNumber": "07034344428",
+    "location": "Orji",
+    "password": "diegocosta1994"
+}
+
+POST http://localhost:5179/profile/upload

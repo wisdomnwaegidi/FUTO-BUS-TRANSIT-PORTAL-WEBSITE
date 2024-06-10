@@ -61,7 +61,7 @@ document.addEventListener("DOMContentLoaded", function () {
       } catch (error) {
         console.log(error);
       } finally {
-        submitButton.textContent = "Login"; 
+        submitButton.textContent = "Login";
         spinner.style.display = "none";
       }
     } else {
@@ -89,8 +89,9 @@ document.addEventListener("DOMContentLoaded", function () {
       });
 
       const responseBody = await res.json();
+      
       if (!res.ok) {
-        throw new Error(responseBody.msg);
+        throw new Error(responseBody.message);
       } else {
         console.log(responseBody);
         window.location.href = "/dashboard";

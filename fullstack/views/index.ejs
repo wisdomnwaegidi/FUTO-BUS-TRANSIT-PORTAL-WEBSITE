@@ -10,7 +10,7 @@
         <a href="/" class="navbar-brand">
           <img
             style="width: 60px"
-            src="../images/futo logo.jpg"
+            src="/images/futo logo.jpg"
             alt="futo logo" />
         </a>
         <button
@@ -57,26 +57,40 @@
             <ul class="navbar-nav">
               <% if (loggedIn) { %>
               <li class="nav-item">
-                <!-- Display the user image -->
-                <img src="/user/image" alt="User Image" class="user-image" />
-                <!-- Display links for logout and edit profile -->
                 <div class="dropdown">
-                  <button
-                    class="btn btn-secondary dropdown-toggle"
-                    type="button"
+                  <% if (user && user.profilePicture) { %>
+                  <img
+                    src="<%= user.profilePicture %>"
+                    alt="<%= user.firstName%>'s image"
+                    width="40px"
+                    height="40px"
+                    class="dropdown-toggle rounded-circle"
+                    role="button"
                     id="dropdownMenuButton"
                     data-toggle="dropdown"
                     aria-haspopup="true"
-                    aria-expanded="false">
-                    User Menu
-                  </button>
+                    aria-expanded="false" />
+                  <% } else { %>
+                  <img
+                    src="/uploads/default-user-picture.png"
+                    alt="User Image"
+                    width="40px"
+                    height="40px"
+                    class="dropdown-toggle"
+                    role="button"
+                    id="dropdownMenuButton"
+                    data-toggle="dropdown"
+                    aria-haspopup="true"
+                    aria-expanded="false" />
+                  <% } %>
                   <div
                     class="dropdown-menu"
                     aria-labelledby="dropdownMenuButton">
                     <a class="dropdown-item" href="/logout">Logout</a>
-                    <a class="dropdown-item" href="/profile/edit"
-                      >Edit Profile</a
-                    >
+                    <% if (user) { %>
+                    <a href="/profile" class="dropdown-item">Edit Profile</a>
+                    <a class="dropdown-item" href="/dashboard">Dashboard</a>
+                    <% } %>
                   </div>
                 </div>
               </li>
@@ -199,12 +213,12 @@
               <div class="time">
                 <input
                   type="text"
-                  name="depature"
-                  id="depature"
-                  class="depature__time"
-                  placeholder="Depature Time"
-                  onfocus="(this.type='datetime-local')"
-                  onblur="(this.type='text')" />
+                  name="departure"
+                  id="departure"
+                  class="departure__time"
+                  placeholder="Departure Time"
+                  onfocus="this.type='datetime-local'"
+                  onblur="if(!this.value) this.type='text'" />
               </div>
 
               <div class="days">
@@ -254,7 +268,7 @@
           <div>
             <i class="fa fa-bus" aria-hidden="true"></i>
             <img
-              src="./images/images header/Bone.jpg"
+              src="/images/images header/Bone.jpg"
               alt="happy people"
               class="img" />
           </div>
@@ -262,7 +276,7 @@
           <div>
             <i class="fa fa-bus" aria-hidden="true"></i>
             <img
-              src="./images/images header/black boy.jpg"
+              src="/images/images header/black boy.jpg"
               alt="happy people"
               class="img" />
           </div>
@@ -270,7 +284,7 @@
           <div>
             <i class="fa fa-bus" aria-hidden="true"></i>
             <img
-              src="./images/images header/Bone-Straight-Hair.jpg"
+              src="/images/images header/Bone-Straight-Hair.jpg"
               alt="happy people"
               class="img" />
           </div>
@@ -278,7 +292,7 @@
           <div>
             <i class="fa fa-bus" aria-hidden="true"></i>
             <img
-              src="./images/images header/images (6).jpg"
+              src="/images/images header/images (6).jpg"
               alt="happy people"
               class="img" />
           </div>
@@ -388,7 +402,7 @@
         <div class="item">
           <div class="box">
             <div class="img-box">
-              <img src="images/c1.jpg" alt="" />
+              <img src="/images/c1.jpg" alt="" />
             </div>
             <div class="detail-box">
               <h4>Okigwe Roundabout</h4>
@@ -403,7 +417,7 @@
         <div class="item">
           <div class="box">
             <div class="img-box">
-              <img src="images/c2.jpg" alt="" />
+              <img src="/images/c2.jpg" alt="" />
             </div>
             <div class="detail-box">
               <h4>Ware House Bus-Stop</h4>
@@ -418,7 +432,7 @@
         <div class="item">
           <div class="box">
             <div class="img-box">
-              <img src="images/c3.jpg" alt="" />
+              <img src="/images/c3.jpg" alt="" />
             </div>
             <div class="detail-box">
               <h4>MCC Junction</h4>
@@ -433,7 +447,7 @@
         <div class="item">
           <div class="box">
             <div class="img-box">
-              <img src="images/c4.jpg" alt="" />
+              <img src="/images/c4.jpg" alt="" />
             </div>
             <div class="detail-box">
               <h4>Egbu Junction</h4>
@@ -461,7 +475,7 @@
       <div class="col-sm-6 col-lg-3">
         <div class="box">
           <div class="img-box">
-            <img src="images/Driver11.jpg" alt="image of a driver" />
+            <img src="/images/Driver11.jpg" alt="image of a driver" />
           </div>
           <div class="detail-box">
             <h5>Alice Stark</h5>
@@ -472,7 +486,7 @@
       <div class="col-sm-6 col-lg-3">
         <div class="box">
           <div class="img-box">
-            <img src="images/Driver22.jpg" alt="image of a driver" />
+            <img src="/images/Driver22.jpg" alt="image of a driver" />
           </div>
           <div class="detail-box">
             <h5>Martin Evans</h5>
@@ -483,7 +497,7 @@
       <div class="col-sm-6 col-lg-3">
         <div class="box">
           <div class="img-box">
-            <img src="images/Driver33.jpg" alt="image of a driver" />
+            <img src="/images/Driver33.jpg" alt="image of a driver" />
           </div>
           <div class="detail-box">
             <h5>Jane Dunn</h5>
@@ -494,7 +508,7 @@
       <div class="col-sm-6 col-lg-3">
         <div class="box">
           <div class="img-box">
-            <img src="images/Driver44.jpg" alt="image of a driver" />
+            <img src="/images/Driver44.jpg" alt="image of a driver" />
           </div>
           <div class="detail-box">
             <h5>Clara Mark</h5>
@@ -526,7 +540,7 @@
             <div class="col-md-11 col-lg-10 mx-auto">
               <div class="box">
                 <div class="img-box">
-                  <img src="images/Girl1.JPG" alt="" />
+                  <img src="/images/Girl1.JPG" alt="" />
                 </div>
                 <div class="detail-box">
                   <div class="name">
@@ -548,7 +562,7 @@
             <div class="col-md-11 col-lg-10 mx-auto">
               <div class="box">
                 <div class="img-box">
-                  <img src="images/smooth-straight-long-locks.jpg" alt="" />
+                  <img src="/images/smooth-straight-long-locks.jpg" alt="" />
                 </div>
                 <div class="detail-box">
                   <div class="name">
@@ -570,7 +584,7 @@
               <div class="box">
                 <div class="img-box">
                   <img
-                    src="images/received_1065065287480324_auto_x2.jpg"
+                    src="/images/received_1065065287480324_auto_x2.jpg"
                     alt="" />
                 </div>
                 <div class="detail-box">

@@ -20,6 +20,9 @@
     <!-- Title -->
     <title>FUTO Student | Staff Bus Service</title>
 
+    <!-- jquery -->
+    <script src="js/jquery-3.4.1.min.js"></script>
+
     <!-- bootstrap core css -->
     <link rel="stylesheet" type="text/css" href="css/bootstrap.css" />
 
@@ -43,7 +46,7 @@
     <nav class="navbar_1">
       <div class="container__1">
         <a href="/" class="img_anchor">
-          <img src="./images/futo logo.jpg" alt="futo logo" class="futo_logo" />
+          <img src="/images/futo logo.jpg" alt="futo logo" class="futo_logo" />
         </a>
         <h1 class="h4">Futo Shuttle Transport</h1>
       </div>
@@ -57,6 +60,7 @@
         </div>
 
         <div class="error11"></div>
+        <div id="errorContainer" style="color: red; display: none;"></div>
 
         <% if (errors && errors.length > 0) { %> <% errors.forEach(error => { %>
         <div
@@ -74,7 +78,7 @@
         </div>
         <% }) %> <% } %>
 
-        <form action="/register" class="form_action" id="form" method="post">
+        <form action="/register" class="form_action" id="form">
           <div class="div__0">
             <div class="div__1">
               <label for="firstName" class="labelfirstname">First name</label>
@@ -191,13 +195,11 @@
         apply.</small
       >
     </footer>
-    <!-- jquery -->
-    <script src="js/jquery-3.4.1.min.js"></script>
-
+    
     <!-- custom JavaScript -->
-    <script src="./js/register.js"></script>
+    <script src="/js/register.js"></script>
 
     <!-- bootstrap js -->
-    <script src="js/bootstrap.js"></script>
+    <script src="/js/bootstrap.js"></script>
   </body>
 </html>

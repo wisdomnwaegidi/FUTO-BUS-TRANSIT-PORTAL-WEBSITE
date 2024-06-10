@@ -5,12 +5,12 @@ document.addEventListener("DOMContentLoaded", () => {
   const displayForm = document.querySelector(".display__results");
   const displayForm1 = document.querySelector(".display__results1");
   const body = document.querySelector("body");
-  const resultDisplay = document.querySelector(".display");
-  const discover__shuttle = document.querySelector(".discover__shuttle");
+  // const resultDisplay = document.querySelector(".display");
+  // const discover__shuttle = document.querySelector(".discover__shuttle");
   const bgdisplay = document.querySelector(".bgdisplay");
   const bgdisplay1 = document.querySelector(".bgdisplay1");
   const autoSubmit = document.getElementById("myForm");
-  const regEx1 = /[A-Z]/g;
+  // const regEx1 = /[A-Z]/g;
 
   // Radio Buttons variables
   const yesBtn = document.getElementById("yes");
@@ -264,32 +264,32 @@ document.addEventListener("DOMContentLoaded", () => {
 
   autoSubmit.addEventListener("submit", onSubmitForm);
 
-  const ticketView = document.getElementById("ticket-view");
+  // const ticketView = document.getElementById("ticket-view");
 
-  // Fetch user tickets and populate the ticket view
-  const userId = "user_id"; // Replace with the actual user ID
-  fetch(`/tickets/${userId}`) // Assuming this endpoint retrieves tickets for the user
-    .then((response) => response.json())
-    .then((tickets) => {
-      // Assuming tickets is an array of ticket objects
-      if (tickets.length > 0) {
-        // Display the first ticket in the view
-        const firstTicket = tickets[0]; // Change this if you want to display a specific ticket
-        populateTicketView(firstTicket);
-      } else {
-        // Handle case where no tickets are found
-        ticketView.innerHTML = "<p>No tickets found.</p>";
-      }
-    })
-    .catch((error) => console.error("Error fetching tickets:", error));
+  // // Fetch user tickets and populate the ticket view
+  // const userId = "user_id"; // Replace with the actual user ID
+  // fetch(`/tickets/${userId}`) // Assuming this endpoint retrieves tickets for the user
+  //   .then((response) => response.json())
+  //   .then((tickets) => {
+  //     // Assuming tickets is an array of ticket objects
+  //     if (tickets.length > 0) {
+  //       // Display the first ticket in the view
+  //       const firstTicket = tickets[0]; // Change this if you want to display a specific ticket
+  //       populateTicketView(firstTicket);
+  //     } else {
+  //       // Handle case where no tickets are found
+  //       ticketView.innerHTML = "<p>No tickets found.</p>";
+  //     }
+  //   })
+  //   .catch((error) => console.error("Error fetching tickets:", error));
 
-  function populateTicketView(ticket) {
-    // Populate ticket view elements with ticket data
-    const ticketTitle = document.getElementById("ticket-title");
-    const ticketDescription = document.getElementById("ticket-description");
-    // Assuming ticket object has 'title' and 'description' properties
-    ticketTitle.textContent = ticket.title;
-    ticketDescription.textContent = ticket.description;
-    // Add more lines to populate other ticket fields if needed
-  }
+  // function populateTicketView(ticket) {
+  //   // Populate ticket view elements with ticket data
+  //   const ticketTitle = document.getElementById("ticket-title");
+  //   const ticketDescription = document.getElementById("ticket-description");
+  //   // Assuming ticket object has 'title' and 'description' properties
+  //   ticketTitle.textContent = ticket.title;
+  //   ticketDescription.textContent = ticket.description;
+  //   // Add more lines to populate other ticket fields if needed
+  // }
 });

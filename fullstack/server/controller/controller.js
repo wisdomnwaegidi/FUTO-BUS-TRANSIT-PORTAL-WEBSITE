@@ -1,24 +1,7 @@
 const Userdb = require("../model/userModel");
 const bcrypt = require("bcrypt");
+const jwt = require("jsonwebtoken");
 const ShuttleForm = require("../model/shuttleFormSchema");
-
-async function fetchTickets(form) {
-  // This is a placeholder function. Replace with actual logic to fetch tickets.
-  return [
-    {
-      busNumber: "123",
-      departureTime: "08:00 AM",
-      arrivalTime: "10:00 AM",
-      price: "$10",
-    },
-    {
-      busNumber: "456",
-      departureTime: "09:00 AM",
-      arrivalTime: "11:00 AM",
-      price: "$12",
-    },
-  ];
-}
 
 exports.registerUser = async (req, res) => {
   const { firstName, lastName, email, phoneNumber, location, password } =
@@ -27,18 +10,14 @@ exports.registerUser = async (req, res) => {
   try {
     const userMail = await Userdb.findOne({ email });
     if (userMail) {
-      return res.status(400).render("register", {
-        errors: [{ msg: "Email already registered" }],
-        data: req.body,
-      });
+      return res.status(400).json({ message: "Email already registered" });
     }
 
     const userNumber = await Userdb.findOne({ phoneNumber });
     if (userNumber) {
-      return res.status(400).render("register", {
-        errors: [{ msg: "Phone number is already registered" }],
-        data: req.body,
-      });
+      return res
+        .status(400)
+        .json({ message: "Phone number is already registered" });
     }
 
     const hashedPassword = await bcrypt.hash(password, 10);
@@ -54,25 +33,22 @@ exports.registerUser = async (req, res) => {
 
     const data = await user.save();
 
-    req.session.user = data;
-
-    req.session.save((err) => {
-      if (err) {
-        console.log("Error saving session:", err);
-        return res.status(500).render("register", {
-          errors: [{ msg: "Server error while saving session" }],
-          data: req.body,
-        });
-      }
-      console.log("Session saved successfully");
-      return res.status(201).render("dashboard", { user: data });
+    const token = jwt.sign({ userId: data._id }, process.env.JWT_SECRET_KEY, {
+      expiresIn: "1d",
     });
+
+    res.cookie("auth_token", token, {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === "production",
+      maxAge: 86400000, // 1 day
+    });
+
+    res.status(201).json({ message: "User registered successfully" });
   } catch (error) {
     console.error("Error creating user:", error);
-    return res.status(500).render("register", {
-      errors: [{ msg: "Server error while creating user" }],
-      data: req.body,
-    });
+    return res
+      .status(500)
+      .json({ message: "Server error while creating user" });
   }
 };
 
@@ -92,27 +68,28 @@ exports.loginUser = async (req, res) => {
     const isMatch = await bcrypt.compare(password, user.password);
 
     if (!isMatch) {
+      console.error("Incorrect password for email:", email);
       return res.status(401).render("login", {
         errors: [{ msg: "Incorrect password" }],
         data: req.body,
       });
     }
 
-    req.session.user = user;
-
-    req.session.save((err) => {
-      if (err) {
-        console.error("Error saving session:", err);
-        return res.status(500).render("login", {
-          errors: [{ msg: "Server error while saving session" }],
-          data: req.body,
-        });
-      }
-
-      return res.status(200).render("dashboard", { user });
+    const token = jwt.sign({ userId: user._id }, process.env.JWT_SECRET_KEY, {
+      expiresIn: "1d",
     });
+
+    res.cookie("auth_token", token, {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === "production",
+      maxAge: 86400000,
+    });
+
+    return res.status(200).render("dashboard", { user });
+    // res.status(200).json({ message: "User loggedin successfully" });
   } catch (error) {
-    console.error("Error logging in:", error);
+    console.error("Error logging in:", error.message);
+    console.error(error.stack);
     return res.status(500).render("login", {
       errors: [{ msg: "Internal server error" }],
       data: req.body,
@@ -121,41 +98,25 @@ exports.loginUser = async (req, res) => {
 };
 
 exports.logout = (req, res) => {
-  req.session.destroy((err) => {
-    if (err) {
-      console.error("Error destroying session:", err);
-      return res.status(500).redirect("/");
-    }
-
-    res.clearCookie("connect.sid");
-    res.redirect("/");
+  res.cookie("auth_token", "", {
+    expires: new Date(0),
+    httpOnly: true,
+    secure: true,
+    sameSite: "Strict",
   });
+  res.redirect("/");
 };
 
-exports.requireAuth = (req, res, next) => {
-  if (req.session && req.session.user) {
-    return next();
-  }
-  return res.redirect("/login");
-};
-
-exports.dashboard = async (req, res) => {
-  try {
-    const user = await Userdb.findById(req.session.user._id).select(
-      "-password"
-    );
-    res.status(200).render("dashboard", { user });
-  } catch (error) {
-    console.error("Error fetching user data:", error);
-    res.status(500).json({ message: "Internal server error" });
-  }
+exports.dashboard = (req, res) => {
+  res.render("dashboard", { user: req.user });
 };
 
 exports.findTicket = async (req, res) => {
   try {
     const shuttleForm = new ShuttleForm(req.body);
     await shuttleForm.save();
-    res.redirect(`/tickets/${shuttleForm._id}`);
+    // res.redirect(`/tickets/${shuttleForm._id}`);
+    res.send("Form submitted successfully");
   } catch (error) {
     res.status(400).render("/", {
       errors: [{ msg: "internal server error" }],

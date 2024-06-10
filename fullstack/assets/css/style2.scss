@@ -1,0 +1,69 @@
+// import color variables
+@import "color-variables";
+
+// fonts import
+@import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;1,400&display=swap");
+
+// font family
+@mixin main-font {
+  font-family: "Poppins", sans-serif;
+}
+
+// import styling for button properties
+@import "hero-btn";
+
+// mixin for font style
+@mixin upperBold {
+  text-transform: uppercase;
+  font-weight: bold;
+}
+
+body {
+  background-color: $background-color;
+  font-family: $font-family;
+}
+
+.container {
+  margin-top: 50px;
+  max-width: 900px;
+  background: $container-bg;
+  padding: $container-padding;
+  border-radius: $container-radius;
+  box-shadow: $container-box-shadow;
+}
+
+.profile-header {
+  text-align: center;
+  margin-bottom: 30px;
+
+  img {
+    width: $profile-img-size;
+    height: $profile-img-size;
+    border-radius: 50%;
+    margin-bottom: 15px;
+  }
+
+  h2 {
+    margin: 0;
+  }
+}
+
+.form-group {
+  label {
+    font-weight: bold;
+  }
+}
+
+.btn-save {
+  background-color: $btn-bg;
+  color: $btn-color;
+  font-size: $btn-font-size;
+  padding: $btn-padding;
+  border: none;
+  border-radius: $btn-border-radius;
+  cursor: pointer;
+
+  &:hover {
+    background-color: $btn-bg-hover;
+  }
+}

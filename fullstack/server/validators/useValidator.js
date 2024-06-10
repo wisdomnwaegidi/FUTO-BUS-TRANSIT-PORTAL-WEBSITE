@@ -22,7 +22,7 @@ exports.registerUserValidator = [
   check("password")
     .notEmpty()
     .withMessage("Password is required")
-    .isLength({ min: 9 })
+    .isLength({ min: 6 })
     .withMessage("Password must be at least 9 characters long"),
 ];
 
@@ -36,28 +36,55 @@ exports.loginUserValidator = [
 ];
 
 exports.validateShuttleForm = [
-  check('from').notEmpty().withMessage('From location is required'),
-  check('to').notEmpty().withMessage('To location is required'),
-  check('tripType')
+  check("from").notEmpty().withMessage("From location is required"),
+  check("to").notEmpty().withMessage("To location is required"),
+  check("tripType")
     .notEmpty()
-    .withMessage('Trip type is required')
-    .isIn(['One-way', 'Return', 'Subscribe']),
-  check('bookingType')
-    .if(body('tripType').equals('Subscribe'))
+    .withMessage("Trip type is required")
+    .isIn(["One-way", "Return", "Subscribe"])
+    .withMessage("Invalid trip type"),
+  check("bookingType")
+    .if(body("tripType").equals("Subscribe"))
     .notEmpty()
-    .withMessage('Booking type is required for subscription'),
-  check('departureTime')
-    .if(body('tripType').equals('Subscribe'))
+    .withMessage("Booking type is required for subscription"),
+  check("departureTime")
+    .if(body("tripType").equals("Subscribe"))
     .notEmpty()
-    .withMessage('Departure time is required for subscription'),
-  check('selectDays')
-    .if(body('tripType').equals('Subscribe'))
+    .withMessage("Departure time is required for subscription"),
+  check("selectDays")
+    .if(body("tripType").equals("Subscribe"))
     .isArray()
-    .withMessage('Select days must be an array')
+    .withMessage("Select days must be an array")
     .notEmpty()
-    .withMessage('Select days are required for subscription'),
-  check('durationInWeeks')
-    .if(body('tripType').equals('Subscribe'))
+    .withMessage("Select days are required for subscription"),
+  check("durationInWeeks")
+    .if(body("tripType").equals("Subscribe"))
     .isInt({ min: 1 })
-    .withMessage('Duration in weeks must be a positive integer'),
+    .withMessage("Duration in weeks must be a positive integer"),
+];
+exports.charter = [
+  check("from").notEmpty().withMessage("From location is required"),
+  check("to").notEmpty().withMessage("To location is required"),
+  check("tripType")
+    .notEmpty()
+    .withMessage("Trip type is required")
+    .isIn(["One-way", "Return", "Subscribe"]),
+  check("bookingType")
+    .if(body("tripType").equals("Subscribe"))
+    .notEmpty()
+    .withMessage("Booking type is required for subscription"),
+  check("departureTime")
+    .if(body("tripType").equals("Subscribe"))
+    .notEmpty()
+    .withMessage("Departure time is required for subscription"),
+  check("selectDays")
+    .if(body("tripType").equals("Subscribe"))
+    .isArray()
+    .withMessage("Select days must be an array")
+    .notEmpty()
+    .withMessage("Select days are required for subscription"),
+  check("durationInWeeks")
+    .if(body("tripType").equals("Subscribe"))
+    .isInt({ min: 1 })
+    .withMessage("Duration in weeks must be a positive integer"),
 ];

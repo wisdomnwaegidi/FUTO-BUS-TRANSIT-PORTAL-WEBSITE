@@ -1,29 +1,27 @@
 document.addEventListener("DOMContentLoaded", function () {
   const form = document.querySelector("#form");
-  const inputs = form.querySelectorAll("input, select");
+  const firstNameInput = document.getElementById("firstName");
+  const lastNameInput = document.getElementById("lastName");
+  const emailInput = document.getElementById("email");
+  const phoneNumberInput = document.getElementById("phoneNumber");
+  const locationSelect = document.getElementById("location");
+  const passwordInput = document.getElementById("password");
   const togglePassword = document.getElementById("toggle");
 
   const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
   const phoneRegex = /^[+]*[(]{0,1}[0-9]{1,4}[)]{0,1}[-s./0-9]*$/;
 
-  const validateInput = (input) => {
+  const validateInput = (input, regex = null, minLength = 0) => {
     let isValid = true;
 
     if (input.value.trim() === "") {
       isValid = false;
-    } else if (input.type === "email" && !emailRegex.test(input.value)) {
+    } else if (regex && !regex.test(input.value)) {
       isValid = false;
-    } else if (input.type === "tel") {
-      if (input.value.length !== 11 || !phoneRegex.test(input.value)) {
-        isValid = false;
-      }
-    } else if (input.tagName === "SELECT") {
-      const selectedIndex = input.selectedIndex;
-      if (selectedIndex === 0) {
-        isValid = false;
-      } else {
-        isValid = true;
-      }
+    } else if (minLength && input.value.length !== minLength) {
+      isValid = false;
+    } else if (input.tagName === "SELECT" && input.selectedIndex === 0) {
+      isValid = false;
     }
 
     if (!isValid) {
@@ -37,34 +35,32 @@ document.addEventListener("DOMContentLoaded", function () {
       input.placeholder = "";
       if (input.labels.length > 0) {
         input.labels[0].style.color = "black";
-      } else if (input.tagName === "SELECT") {
-        input.labels[0].style.color = "black";
-        input.style.border = "1px solid green";
       }
     }
 
     return isValid;
   };
 
-  inputs.forEach((input) => {
-    input.addEventListener("keyup", () => validateInput(input));
-  });
-
   form.addEventListener("submit", async (event) => {
     event.preventDefault();
-    let allValid = true;
 
-    inputs.forEach((input) => {
-      if (!validateInput(input)) {
-        allValid = false;
-      }
-    });
+    const isFirstNameValid = validateInput(firstNameInput);
+    const isLastNameValid = validateInput(lastNameInput);
+    const isEmailValid = validateInput(emailInput, emailRegex);
+    const isPhoneNumberValid = validateInput(phoneNumberInput, phoneRegex, 11);
+    const isLocationValid = validateInput(locationSelect);
+    const isPasswordValid = validateInput(passwordInput);
 
-    if (allValid) {
+    if (
+      isFirstNameValid &&
+      isLastNameValid &&
+      isEmailValid &&
+      isPhoneNumberValid &&
+      isLocationValid &&
+      isPasswordValid
+    ) {
       try {
         await register();
-        form.submit();
-        form.reset();
       } catch (error) {
         console.error(error);
       }
@@ -72,8 +68,16 @@ document.addEventListener("DOMContentLoaded", function () {
   });
 
   const register = async () => {
-    const formData = {};
-    inputs.forEach((input) => (formData[input.name] = input.value));
+    const formData = {
+      firstName: firstNameInput.value,
+      lastName: lastNameInput.value,
+      email: emailInput.value,
+      phoneNumber: phoneNumberInput.value,
+      location: locationSelect.value,
+      password: passwordInput.value,
+    };
+
+    console.log("Sending data to server:", formData);
 
     try {
       const response = await fetch(`/register`, {
@@ -99,8 +103,7 @@ document.addEventListener("DOMContentLoaded", function () {
   };
 
   togglePassword.addEventListener("click", () => {
-    const passwordToggle = document.getElementById("password");
-    passwordToggle.type =
-      passwordToggle.type === "password" ? "text" : "password";
+    passwordInput.type =
+      passwordInput.type === "password" ? "text" : "password";
   });
 });

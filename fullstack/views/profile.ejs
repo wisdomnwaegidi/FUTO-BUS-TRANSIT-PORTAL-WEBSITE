@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <!-- Basic -->
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <!-- Mobile Metas -->
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <!-- Site Metas -->
+    <meta name="keywords" content="" />
+    <meta name="description" content="" />
+    <meta name="author" content="" />
+
+    <!-- title -->
+    <title>Student Profile</title>
+
+    <!-- favicon -->
+    <link rel="icon" href="/favicon/logo.ico" type="image/gif" />
+
+    <!-- bootstrap core css -->
+    <link rel="stylesheet" type="text/css" href="/css/bootstrap.css" />
+
+    <!-- fonts style -->
+    <link
+      href="https://fonts.googleapis.com/css?family=Poppins:400,600,700&display=swap"
+      rel="stylesheet" />
+
+    <!-- font awesome style -->
+    <link href="/css/font-awesome.min.css" rel="stylesheet" />
+
+    <!-- Custom styles for this template -->
+    <link href="/css/style.css" rel="stylesheet" />
+
+    <!-- responsive style -->
+    <link href="/css/responsive.css" rel="stylesheet" />
+
+    <style>
+      body {
+        background-color: #e9edf5;
+        font-family: Arial, sans-serif;
+      }
+      .container {
+        margin-top: 50px;
+        max-width: 900px;
+        background: white;
+        padding: 30px;
+        border-radius: 10px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      }
+      .profile-header {
+        text-align: center;
+        margin-bottom: 30px;
+      }
+      .profile-header img {
+        width: 150px;
+        height: 150px;
+        border-radius: 50%;
+        margin-bottom: 15px;
+      }
+      .profile-header h2 {
+        margin: 0;
+      }
+      .form-group label {
+        font-weight: bold;
+      }
+      .btn-save {
+        background-color: #007bff;
+        color: white;
+        font-size: 16px;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+      }
+      .btn-save:hover {
+        background-color: #0056b3;
+      }
+
+      /* Hide the default file input */
+      .file-input {
+        display: none;
+      }
+
+      /* Style the custom label */
+      .file-upload-label {
+        display: inline-block;
+        cursor: pointer;
+        background-color: #007bff;
+        color: #fff;
+        padding: 10px 20px;
+        border-radius: 5px;
+        font-size: 16px;
+        text-align: center;
+        margin-top: 10px;
+      }
+
+      /* Add hover and active styles for better user experience */
+      .file-upload-label:hover {
+        background-color: #0056b3;
+      }
+
+      .file-upload-label:active {
+        background-color: #003f7f;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- nav -->
+    <header>
+      <nav class="navbar_1">
+        <div class="container__1">
+          <a href="/" class="img_anchor">
+            <img
+              src="/images/futo logo.jpg"
+              alt="futo logo"
+              class="futo_logo" />
+          </a>
+          <h1 class="h4">Futo Shuttle Transport</h1>
+        </div>
+      </nav>
+    </header>
+
+    <div class="container">
+      <div class="profile-header">
+        <% if (user.profilePicture && user.profilePicture !== '') { %>
+        <img src="<%= user.profilePicture %>" alt="Profile Picture" />
+        <% } else { %>
+        <img src="/uploads/userimage.png" alt="Default Profile Picture" />
+        <% } %>
+        <h2>
+          <%= user.firstName ?? 'First Name' %> <%= user.lastName ?? 'Last Name'
+          %>
+        </h2>
+        <p><%= user.address ?? 'Address not provided' %></p>
+      </div>
+
+      <!-- Form for uploading a profile picture -->
+      <div class="container">
+        <form id="profileForm" enctype="multipart/form-data">
+          <div class="file-upload-wrapper" style="position: relative">
+            <img
+              src="<%= user.profilePicture %>"
+              alt="Profile Picture"
+              id="imagePreview"
+              style="
+                width: 15rem;
+                height: 15rem;
+                object-fit: cover;
+                border-radius: 50%;
+              " />
+            <!-- <br /> -->
+            <div>
+              <div
+                style="
+                  margin-bottom: 10px;
+                  position: relative;
+                  bottom: 70px;
+                  left: 100px;
+                ">
+                <input
+                  type="file"
+                  id="profilePicture"
+                  name="profilePicture"
+                  accept=".jpeg,.jpg"
+                  class="file-input" />
+                <label for="profilePicture" class="file-upload-label">
+                  <i class="fa fa-upload" aria-hidden="true"></i>
+                </label>
+              </div>
+            </div>
+            <button
+              type="submit"
+              id="uploadButton"
+              style="
+                position: relative;
+                bottom: 120px;
+                left: 80px;
+                color: white;
+                background-color: #007bff;
+                outline: none;
+                border: none;
+                padding: 10px 30px;
+                margin-top: 4rem;
+                cursor: pointer;
+                border-radius: 5px;
+              "
+              disabled>
+              Save
+            </button>
+          </div>
+        </form>
+        <div id="message"></div>
+      </div>
+
+      <form
+        action="/profile/<%= user._id %>/details"
+        id="uploadForm"
+        method="POST">
+        <div class="form-group">
+          <label for="firstName">First name</label>
+          <input
+            type="text"
+            class="form-control"
+            id="firstName"
+            name="firstName"
+            value="<%= user.firstName %>" />
+        </div>
+        <div class="form-group">
+          <label for="lastName">Last name</label>
+          <input
+            type="text"
+            class="form-control"
+            id="lastName"
+            name="lastName"
+            value="<%= user.lastName %>" />
+        </div>
+        <div class="form-group">
+          <label for="email">Email address</label>
+          <input
+            type="email"
+            class="form-control"
+            id="email"
+            name="email"
+            value="<%= user.email %>" />
+        </div>
+        <div class="form-group">
+          <label for="address">Address</label>
+          <input
+            type="text"
+            class="form-control"
+            id="address"
+            name="address"
+            value="<%= user.address %>" />
+        </div>
+        <button type="submit" class="btn-save">SAVE DETAILS</button>
+      </form>
+
+      <!-- HTML for displaying toast notifications -->
+      <div
+        class="toast"
+        id="toast"
+        role="alert"
+        aria-live="assertive"
+        aria-atomic="true">
+        <div class="toast-header">
+          <strong class="mr-auto">Success</strong>
+          <button
+            type="button"
+            class="ml-2 mb-1 close"
+            data-dismiss="toast"
+            aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="toast-body">
+          <img src="" alt="Profile Picture" id="profilePicture" />
+          <span id="successMessage"></span>
+        </div>
+      </div>
+    </div>
+
+    <!-- custom js -->
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        const profilePictureInput = document.getElementById("profilePicture");
+        const imagePreview = document.getElementById("imagePreview");
+        const uploadButton = document.getElementById("uploadButton");
+        const profileForm = document.getElementById("profileForm");
+        const messageElement = document.getElementById("message");
+
+        profilePictureInput.addEventListener("change", function (event) {
+          const file = event.target.files[0]; //select first image
+          if (file) {
+            const reader = new FileReader();
+            reader.onload = function (e) {
+              imagePreview.src = e.target.result;
+            };
+            reader.readAsDataURL(file);
+            uploadButton.disabled = false;
+          }
+        });
+
+        profileForm.addEventListener("submit", async function (event) {
+          event.preventDefault();
+
+          const formData = new FormData(profileForm);
+          const url = `/profile/<%= user._id %>/picture`;
+
+          try {
+            const response = await fetch(url, {
+              method: "POST",
+              body: formData,
+            });
+
+            if (!response.ok) {
+              throw new Error(
+                "An error occurred while uploading the profile picture."
+              );
+            }
+
+            const data = await response.json();
+            console.log(data); // Check response from server
+            messageElement.textContent =
+              "Profile picture updated successfully!";
+          } catch (error) {
+            console.error("Error:", error);
+            messageElement.textContent =
+              error.message ||
+              "An error occurred while uploading the profile picture.";
+          }
+        });
+      });
+    </script>
+
+    <!-- <script src="/js/imageupload.js"></script> -->
+
+    <!-- jQuery -->
+    <script src="/js/jquery-3.4.1.min.js"></script>
+
+    <!-- bootstrap js -->
+    <script src="/js/bootstrap.js"></script>
+  </body>
+</html>
