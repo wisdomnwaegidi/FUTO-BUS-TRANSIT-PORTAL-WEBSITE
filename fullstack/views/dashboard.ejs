@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
   <head>
     <!-- Basic -->
@@ -7,7 +7,8 @@
     <!-- Mobile Metas -->
     <meta
       name="viewport"
-      content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
     <!-- Site Metas -->
     <meta name="keywords" content="" />
     <meta name="description" content="" />
@@ -25,7 +26,8 @@
     <!-- fonts style -->
     <link
       href="https://fonts.googleapis.com/css?family=Poppins:400,600,700&display=swap"
-      rel="stylesheet" />
+      rel="stylesheet"
+    />
 
     <!-- font awesome style -->
     <link href="/css/font-awesome.min.css" rel="stylesheet" />
@@ -41,12 +43,14 @@
     <header class="header_section">
       <div class="container-fluid dashboard__container">
         <nav
-          class="navbar navbar-expand-lg custom_nav-container d-flex justify-content-between black">
+          class="navbar navbar-expand-lg custom_nav-container d-flex justify-content-between black"
+        >
           <a href="/" class="navbar-brand">
             <img
               style="width: 60px"
               src="/images/futo logo.jpg"
-              alt="futo logo" />
+              alt="futo logo"
+            />
           </a>
           <button
             class="navbar-toggler"
@@ -55,12 +59,14 @@
             data-target="#navbarSupportedContent"
             aria-controls="navbarSupportedContent"
             aria-expanded="false"
-            aria-label="Toggle navigation">
+            aria-label="Toggle navigation"
+          >
             <span class="dasbboard-toggler"></span>
           </button>
           <div
             class="collapse navbar-collapse dd__flex"
-            id="navbarSupportedContent">
+            id="navbarSupportedContent"
+          >
             <div class="ml-lg-auto mr-0">
               <ul class="navbar-nav">
                 <li class="nav-item">
@@ -80,7 +86,8 @@
                 <li class="nav-item">
                   <i
                     class="fa fa-bell nav-link dashboard"
-                    aria-hidden="true"></i>
+                    aria-hidden="true"
+                  ></i>
                 </li>
                 <li class="nav-item">
                   <img
@@ -90,13 +97,15 @@
                       border-radius: 100%;
                       background-color: black;
                       padding: 20px;
-                    " />
+                    "
+                  />
                 </li>
                 <li class="nav-item">
                   <% if (user) { %>
                   <p class="nav-link dashboard user">
                     Welcome
-                    <span class="user__color"><%= user.firstName %></span> <%=
+                    <span class="user__color"><%= user.firstName %></span>
+                    <%=
                     user.lastName %>
                   </p>
                   <small class="nav-link dashboard little"
@@ -108,7 +117,8 @@
                   <i
                     class="fa fa-angle-down nav-link dashboard"
                     aria-hidden="true"
-                    id="unhide"></i>
+                    id="unhide"
+                  ></i>
                 </li>
                 <li class="nav-item">
                   <div class="log">
@@ -158,7 +168,8 @@
                   placeholder="From: Pickup Location"
                   part="Pickup location"
                   autocomplete="false"
-                  class="input1" />
+                  class="input1"
+                />
 
                 <input
                   type="search"
@@ -166,14 +177,16 @@
                   id="input_2"
                   placeholder="To: Arrival Bust stop"
                   part="To: Arrival Bust stop"
-                  autocomplete="false" />
+                  autocomplete="false"
+                />
 
                 <input
                   type="radio"
                   name="myRadios"
                   id="yes"
                   class="radio"
-                  value="1" />
+                  value="1"
+                />
                 <label for="chose" class="label_1">One-way</label>
 
                 <input
@@ -181,7 +194,8 @@
                   name="myRadios"
                   id="no"
                   class="radio"
-                  value="2" />
+                  value="2"
+                />
                 <label for="" class="label_1">Return</label>
 
                 <input
@@ -189,7 +203,8 @@
                   name="myRadios"
                   id="maybe"
                   class="radio"
-                  value="3" />
+                  value="3"
+                />
                 <label for="" class="label_1">Suscribe</label>
               </div>
 
@@ -201,7 +216,8 @@
                   placeholder="Choose Date and time"
                   class="input_1"
                   onfocus="(this.type='datetime-local')"
-                  onblur="(this.type='text')" />
+                  onblur="(this.type='text')"
+                />
               </div>
 
               <div class="dflex" id="d-flex">
@@ -215,7 +231,8 @@
                     id="first"
                     class="input"
                     onfocus="(this.type='date')"
-                    onblur="(this.type='text')" />
+                    onblur="(this.type='text')"
+                  />
                   <label class="label">Second Trip</label>
                   <input
                     type="text"
@@ -225,7 +242,8 @@
                     id="second"
                     class="input"
                     onfocus="(this.type='date')"
-                    onblur="(this.type='text')" />
+                    onblur="(this.type='text')"
+                  />
                 </div>
               </div>
 
@@ -249,14 +267,16 @@
                     class="depature__time"
                     placeholder="Depature Time"
                     onfocus="(this.type='datetime-local')"
-                    onblur="(this.type='text')" />
+                    onblur="(this.type='text')"
+                  />
                 </div>
 
                 <div class="days">
                   <select
                     name="daysweeks"
                     id="daysweeks"
-                    class="booking__type1">
+                    class="booking__type1"
+                  >
                     <option value="0" id="days" disabled selected hidden>
                       Select Days
                     </option>
@@ -274,7 +294,8 @@
                   <select
                     name="daysduration"
                     id="daysduration"
-                    class="booking__type">
+                    class="booking__type"
+                  >
                     <option value="0" disabled selected hidden>
                       Duration in Weeks
                     </option>

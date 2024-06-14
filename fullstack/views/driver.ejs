@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
   <head>
     <!-- Basic -->
@@ -10,7 +10,7 @@
       content="width=device-width, initial-scale=1, shrink-to-fit=no"
     />
     <!-- Site Metas -->
-    <link rel="icon" href="favicon/logo.ico" type="image/gif" />
+    <link rel="icon" href="/favicon/logo.ico" type="image/gif" />
     <meta name="keywords" content="" />
     <meta name="description" content="" />
     <meta name="author" content="" />
@@ -18,7 +18,7 @@
     <title>FUTO Student | Staff Bus Service</title>
 
     <!-- bootstrap core css -->
-    <link rel="stylesheet" type="text/css" href="css/bootstrap.css" />
+    <link rel="stylesheet" type="text/css" href="/css/bootstrap.css" />
 
     <!-- fonts style -->
     <link
@@ -27,7 +27,7 @@
     />
 
     <!-- font awesome style -->
-    <link href="css/font-awesome.min.css" rel="stylesheet" />
+    <link href="/css/font-awesome.min.css" rel="stylesheet" />
     <!-- owl carousel -->
     <link
       rel="stylesheet"
@@ -36,9 +36,9 @@
       crossorigin="anonymous"
     />
     <!-- Custom styles for this template -->
-    <link href="css/style.css" rel="stylesheet" />
+    <link href="/css/style.css" rel="stylesheet" />
     <!-- responsive style -->
-    <link href="css/responsive.css" rel="stylesheet" />
+    <link href="/css/responsive.css" rel="stylesheet" />
   </head>
   <body class="sub_page">
     <div class="hero_area">
@@ -48,7 +48,7 @@
           <nav class="navbar navbar-expand-lg custom_nav-container">
             <a href="/" class="navbar-brand">
               <img
-                src="images/futo logo.jpg"
+                src="/images/futo logo.jpg"
                 alt=""
                 sizes=""
                 srcset=""
@@ -99,14 +99,60 @@
               </div>
               <div class="sign_btn-container">
                 <ul class="navbar-nav">
+                  <% if (loggedIn) { %>
+                  <li class="nav-item">
+                    <div class="dropdown">
+                      <% if (user && user.profilePicture) { %>
+                      <img
+                        src="<%= user.profilePicture %>"
+                        alt="<%= user.firstName%>'s image"
+                        width="40px"
+                        height="40px"
+                        class="dropdown-toggle rounded-circle"
+                        role="button"
+                        id="dropdownMenuButton"
+                        data-toggle="dropdown"
+                        aria-haspopup="true"
+                        aria-expanded="false"
+                      />
+                      <% } else { %>
+                      <img
+                        src="/uploads/default-user-picture.png"
+                        alt="User Image"
+                        width="40px"
+                        height="40px"
+                        class="dropdown-toggle"
+                        role="button"
+                        id="dropdownMenuButton"
+                        data-toggle="dropdown"
+                        aria-haspopup="true"
+                        aria-expanded="false"
+                      />
+                      <% } %>
+                      <div
+                        class="dropdown-menu"
+                        aria-labelledby="dropdownMenuButton"
+                      >
+                        <a class="dropdown-item" href="/logout">Logout</a>
+                        <% if (user) { %>
+                        <a href="/profile" class="dropdown-item"
+                          >Edit Profile</a
+                        >
+                        <a class="dropdown-item" href="/dashboard">Dashboard</a>
+                        <% } %>
+                      </div>
+                    </div>
+                  </li>
+                  <% } else { %>
                   <li class="nav-item nav__login">
-                    <a href="/login" class="nav-link"> Login </a>
+                    <a href="/login" class="nav-link">Login</a>
                   </li>
                   <li class="nav-item">
-                    <a class="nav-link nav__sign--up" href="/register">
-                      Register
-                    </a>
+                    <a class="nav-link nav__sign--up" href="/register"
+                      >Register</a
+                    >
                   </li>
+                  <% } %>
                 </ul>
               </div>
             </div>
@@ -351,13 +397,13 @@
     <!-- footer section -->
 
     <!-- jQery -->
-    <script src="js/jquery-3.4.1.min.js"></script>
+    <script src="/js/jquery-3.4.1.min.js"></script>
     <!-- bootstrap js -->
-    <script src="js/bootstrap.js"></script>
+    <script src="/js/bootstrap.js"></script>
     <!-- owl carousel -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"></script>
     <!-- date js -->
-    <script src="js/date.js"></script>
+    <script src="/js/date.js"></script>
 
     <!-- Google Map -->
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCh39n5U-4IoWpsVGUHWdqB6puEkhRLdmI&callback=myMap"></script>

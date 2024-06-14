@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
   <head>
     <!-- Basic -->
@@ -7,7 +7,8 @@
     <!-- Mobile Metas -->
     <meta
       name="viewport"
-      content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
     <!-- Site Metas -->
     <link rel="icon" href="/favicon/logo.ico" type="image/gif" />
     <meta name="keywords" content="" />
@@ -22,7 +23,8 @@
     <!-- fonts style -->
     <link
       href="https://fonts.googleapis.com/css?family=Poppins:400,600,700&display=swap"
-      rel="stylesheet" />
+      rel="stylesheet"
+    />
 
     <!-- font awesome style -->
     <link href="/css/font-awesome.min.css" rel="stylesheet" />
@@ -49,7 +51,8 @@
               src="/images/futo logo.jpg"
               style="width: 60px"
               src="/images/futo logo.jpg"
-              alt="futo logo" />
+              alt="futo logo"
+            />
           </a>
           <button
             class="navbar-toggler"
@@ -58,15 +61,18 @@
             data-target="#navbarSupportedContent"
             aria-controls="navbarSupportedContent"
             aria-expanded="false"
-            aria-label="Toggle navigation">
+            aria-label="Toggle navigation"
+          >
             <span class=""></span>
           </button>
 
           <div
             class="collapse navbar-collapse dd__flex"
-            id="navbarSupportedContent">
+            id="navbarSupportedContent"
+          >
             <div
-              class="d-flex mx-0 mx-xs-auto mx-sm-auto flex-column flex-lg-row align-items-sm-start align-items-start accordion-1">
+              class="d-flex mx-0 mx-xs-auto mx-sm-auto flex-column flex-lg-row align-items-sm-start align-items-start accordion-1"
+            >
               <ul class="navbar-nav">
                 <li class="nav-item active">
                   <a class="nav-link" href="/charter"
@@ -92,14 +98,58 @@
             </div>
             <div class="sign_btn-container">
               <ul class="navbar-nav">
+                <% if (loggedIn) { %>
+                <li class="nav-item">
+                  <div class="dropdown">
+                    <% if (user && user.profilePicture) { %>
+                    <img
+                      src="<%= user.profilePicture %>"
+                      alt="<%= user.firstName%>'s image"
+                      width="40px"
+                      height="40px"
+                      class="dropdown-toggle rounded-circle"
+                      role="button"
+                      id="dropdownMenuButton"
+                      data-toggle="dropdown"
+                      aria-haspopup="true"
+                      aria-expanded="false"
+                    />
+                    <% } else { %>
+                    <img
+                      src="/uploads/default-user-picture.png"
+                      alt="User Image"
+                      width="40px"
+                      height="40px"
+                      class="dropdown-toggle"
+                      role="button"
+                      id="dropdownMenuButton"
+                      data-toggle="dropdown"
+                      aria-haspopup="true"
+                      aria-expanded="false"
+                    />
+                    <% } %>
+                    <div
+                      class="dropdown-menu"
+                      aria-labelledby="dropdownMenuButton"
+                    >
+                      <a class="dropdown-item" href="/logout">Logout</a>
+                      <% if (user) { %>
+                      <a href="/profile" class="dropdown-item">Edit Profile</a>
+                      <a class="dropdown-item" href="/dashboard">Dashboard</a>
+                      <% } %>
+                    </div>
+                  </div>
+                </li>
+                <% } else { %>
                 <li class="nav-item nav__login">
-                  <a href="/login" class="nav-link"> Login </a>
+                  <a href="/login" class="nav-link">Login</a>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link nav__sign--up" href="/register">
-                    Register
-                  </a>
+                  <a class="nav-link nav__sign--up" href="/register"
+                    >Register</a
+                  >
                 </li>
+                <% } %>
               </ul>
             </div>
           </div>
@@ -121,7 +171,8 @@
               id="input1"
               placeholder="Enter your first name"
               class="input_1"
-              part="Pickup location" />
+              part="Pickup location"
+            />
 
             <span class="errmessage2"></span>
             <input
@@ -129,7 +180,8 @@
               name="lastname"
               id="input2"
               placeholder="Enter your last name"
-              part="To: Arrival Bust stop" />
+              part="To: Arrival Bust stop"
+            />
 
             <span class="errmessage3"></span>
             <input
@@ -137,7 +189,8 @@
               name="email"
               id="input3"
               placeholder="Enter your email"
-              part="To: Arrival Bust stop" />
+              part="To: Arrival Bust stop"
+            />
 
             <span class="errmessage4"></span>
             <input
@@ -145,7 +198,8 @@
               name="phonenumber"
               id="input4"
               placeholder="Enter your phone number"
-              part="To: Arrival Bust stop" />
+              part="To: Arrival Bust stop"
+            />
 
             <span class="errmessage5"></span>
             <input
@@ -153,7 +207,8 @@
               name="from"
               id="input5"
               placeholder="From: Arrival location"
-              part="To: Arrival Bust stop" />
+              part="To: Arrival Bust stop"
+            />
 
             <span class="errmessage6"></span>
             <input
@@ -161,7 +216,8 @@
               name="to"
               id="input6"
               placeholder="To: Arrival Location"
-              part="To: Arrival Bust stop" />
+              part="To: Arrival Bust stop"
+            />
 
             <div class="date__products">
               <div class="date__products__2">
@@ -174,7 +230,8 @@
                   id="datepicke1"
                   placeholder="Choose Date and time"
                   onfocus="(this.type='datetime-local')"
-                  onblur="(this.type='text')" />
+                  onblur="(this.type='text')"
+                />
               </div>
               <div class="date__products__2">
                 <p>Return time</p>
@@ -185,7 +242,8 @@
                   id="datepicker2"
                   placeholder="Choose Date and time"
                   onfocus="(this.type='datetime-local')"
-                  onblur="(this.type='text')" />
+                  onblur="(this.type='text')"
+                />
               </div>
             </div>
             <span class="errmessage9"></span>
@@ -193,22 +251,24 @@
               type="number"
               name="passengers"
               id="Boarding_1"
-              inputMode="numeric"
+              inputmode="numeric"
               pattern="\d*"
               min="1"
               placeholder="Boarding passengers"
-              part="To: Arrival Bust stop" />
+              part="To: Arrival Bust stop"
+            />
 
             <span class="errmessage10"></span>
             <input
               type="number"
               name="stops"
               id="Stops_1"
-              inputMode="numeric"
+              inputmode="numeric"
               pattern="\d*"
               min="1"
               placeholder="How many stops in between your trip"
-              part="To: Arrival Bust stop" />
+              part="To: Arrival Bust stop"
+            />
 
             <button type="submit">Submit Request</button>
           </form>

@@ -49,14 +49,20 @@ document.addEventListener("DOMContentLoaded", function () {
     const isPasswordValid = validatePassword();
 
     const buttonUpdate = () => {
-      spinner.style.display = "inline-block";
-      submitButton.textContent = "Please wait...";
+      // spinner.style.display = "inline-block";
+      submitButton.innerHTML = `<span
+                id="spinner"
+                class="spinner-border spinner-border-sm"
+                role="status"
+              >
+                <span class="sr-only">Loading...</span>
+              </span> Please wait...`;
     };
 
     if (isEmailValid && isPasswordValid) {
       buttonUpdate();
       try {
-        form.submit(); // Submit the form after login
+        form.submit();
         await login();
       } catch (error) {
         console.log(error);
@@ -89,7 +95,7 @@ document.addEventListener("DOMContentLoaded", function () {
       });
 
       const responseBody = await res.json();
-      
+
       if (!res.ok) {
         throw new Error(responseBody.message);
       } else {
@@ -110,4 +116,30 @@ document.addEventListener("DOMContentLoaded", function () {
   // Input blur event listeners for validation
   emailInput.addEventListener("keyup", validateEmail);
   passwordInput.addEventListener("keyup", validatePassword);
+
+  // forgot password logic
+  const forgotPasswordForm = document.getElementById("forgotPasswordForm");
+
+  forgotPasswordForm.addEventListener("submit", async (e) => {
+    e.preventDefault();
+    const email = document.getElementById("email").value;
+
+    try {
+      const response = await fetch("/forgot-password", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ email }),
+      });
+
+      if (response.ok) {
+        alert("Password reset link has been sent to your email.");
+      } else {
+        alert("An error occurred. Please try again.");
+      }
+    } catch (error) {
+      console.error("Error:", error);
+    }
+  });
 });

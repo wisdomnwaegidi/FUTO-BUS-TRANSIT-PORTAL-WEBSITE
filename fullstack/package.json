@@ -19,6 +19,8 @@
     "@types/multer": "^1.4.11",
     "browser-sync": "^2.29.3",
     "nodemon": "^2.0.20",
+    "prettier": "^3.3.2",
+    "prettier-plugin-ejs": "^1.0.3",
     "webpack": "^5.82.0",
     "webpack-cli": "^5.1.0",
     "webpack-dev-server": "^4.15.0"
@@ -43,6 +45,7 @@
     "mongoose": "^6.8.1",
     "morgan": "^1.10.0",
     "multer": "^1.4.5-lts.1",
+    "nodemailer": "^6.9.13",
     "serve-favicon": "^2.5.0"
   }
 }

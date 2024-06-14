@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="eng">
   <head>
     <!-- Basic -->
@@ -121,7 +121,12 @@
           <div class="container-fluid">
             <nav class="navbar navbar-expand-lg custom_nav-container">
               <a class="navbar-brand" href="/">
-                <img src="/images/futo logo.jpg" alt="" srcset="" width="60px" />
+                <img
+                  src="/images/futo logo.jpg"
+                  alt=""
+                  srcset=""
+                  width="60px"
+                />
               </a>
               <button
                 class="navbar-toggler"
@@ -169,14 +174,62 @@
                 </div>
                 <div class="sign_btn-container">
                   <ul class="navbar-nav">
+                    <% if (loggedIn) { %>
+                    <li class="nav-item">
+                      <div class="dropdown">
+                        <% if (user && user.profilePicture) { %>
+                        <img
+                          src="<%= user.profilePicture %>"
+                          alt="<%= user.firstName%>'s image"
+                          width="40px"
+                          height="40px"
+                          class="dropdown-toggle rounded-circle"
+                          role="button"
+                          id="dropdownMenuButton"
+                          data-toggle="dropdown"
+                          aria-haspopup="true"
+                          aria-expanded="false"
+                        />
+                        <% } else { %>
+                        <img
+                          src="/uploads/default-user-picture.png"
+                          alt="User Image"
+                          width="40px"
+                          height="40px"
+                          class="dropdown-toggle"
+                          role="button"
+                          id="dropdownMenuButton"
+                          data-toggle="dropdown"
+                          aria-haspopup="true"
+                          aria-expanded="false"
+                        />
+                        <% } %>
+                        <div
+                          class="dropdown-menu"
+                          aria-labelledby="dropdownMenuButton"
+                        >
+                          <a class="dropdown-item" href="/logout">Logout</a>
+                          <% if (user) { %>
+                          <a href="/profile" class="dropdown-item"
+                            >Edit Profile</a
+                          >
+                          <a class="dropdown-item" href="/dashboard"
+                            >Dashboard</a
+                          >
+                          <% } %>
+                        </div>
+                      </div>
+                    </li>
+                    <% } else { %>
                     <li class="nav-item nav__login">
-                      <a href="/login" class="nav-link"> Login </a>
+                      <a href="/login" class="nav-link">Login</a>
                     </li>
                     <li class="nav-item">
-                      <a class="nav-link nav__sign--up" href="/register">
-                        Register
-                      </a>
+                      <a class="nav-link nav__sign--up" href="/register"
+                        >Register</a
+                      >
                     </li>
+                    <% } %>
                   </ul>
                 </div>
               </div>

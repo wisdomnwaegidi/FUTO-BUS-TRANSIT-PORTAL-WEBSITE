@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
   <head>
     <!-- Basic -->
@@ -7,7 +7,8 @@
     <!-- Mobile Metas -->
     <meta
       name="viewport"
-      content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
     <!-- Site Metas -->
     <meta name="keywords" content="" />
     <meta name="description" content="" />
@@ -20,22 +21,17 @@
     <link rel="icon" href="/favicon/logo.ico" type="image/gif" />
 
     <!-- bootstrap core css -->
-    <link rel="stylesheet" type="text/css" href="css/bootstrap.css" />
+    <link rel="stylesheet" type="text/css" href="/css/bootstrap.css" />
 
     <!-- fonts style -->
     <link
       href="https://fonts.googleapis.com/css?family=Poppins:400,600,700&display=swap"
-      rel="stylesheet" />
+      rel="stylesheet"
+    />
 
     <!-- font awesome style -->
     <link href="/css/font-awesome.min.css" rel="stylesheet" />
 
-    <!-- owl carousel -->
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css"
-      integrity="sha256-UhQQ4fxEeABh4JrcmAJ1+16id/1dnlOEVCFOxDef9Lw="
-      crossorigin="anonymous" />
 
     <!-- Custom styles for this template -->
     <link href="/css/style.css" rel="stylesheet" />
@@ -47,7 +43,7 @@
     <nav class="navbar_1">
       <div class="container__1">
         <a href="/" class="img_anchor">
-          <img src="./images/futo logo.jpg" alt="futo logo" class="futo_logo" />
+          <img src="/images/futo logo.jpg" alt="futo logo" class="futo_logo" />
         </a>
         <h1 class="h4">Futo Shuttle Transport</h1>
       </div>
@@ -74,17 +70,20 @@
           <div
             id="error-alert-<%= error.param %>"
             class="alert alert-warning alert-dismissible fade show text-center"
-            role="alert">
+            role="alert"
+          >
             <%= error.msg %>
             <button
               type="button"
               class="close"
               data-dismiss="alert"
-              aria-label="Close">
+              aria-label="Close"
+            >
               <span aria-hidden="true">&times;</span>
             </button>
           </div>
-          <% }) %> <% } %>
+          <% }) %>
+          <% } %>
 
           <form action="/login" method="post" class="loginForm" id="login-form">
             <div class="input__forms__login">
@@ -96,12 +95,14 @@
                     name="email"
                     id="email"
                     value="<%= data && data.email ? data.email : '' %>"
-                    placeholder="sample@mail.com" />
+                    placeholder="sample@mail.com"
+                  />
                 </div>
 
                 <div
                   class="password__number__div password__number--dvd"
-                  id="password__number">
+                  id="password__number"
+                >
                   <label for="password">Password</label>
                   <input
                     type="password"
@@ -109,26 +110,22 @@
                     name="password"
                     value="<%= data && data.password ? data.password : '' %>"
                     placeholder="eg Mamafrica20"
-                    class="passwordinp" />
+                    class="passwordinp"
+                  />
                 </div>
                 <div class="check">
-                  <input
+                  <span>
+                    <input
                     type="checkbox"
                     name="check"
                     id="checkbox"
-                    class="checkbox" />Show Password
+                    class="checkbox"
+                  />Show Password</span>
+                  <a href="/forgot-password" class="forgot-password">Forgot Password</a>
                 </div>
               </div>
-            </div>
             <button type="submit" id="sbtn" class="pwordbtn">
               Login
-              <span
-                id="spinner"
-                class="spinner-border spinner-border-sm"
-                role="status"
-                style="display: none">
-                <span class="sr-only">Loading...</span>
-              </span>
             </button>
           </form>
         </main>

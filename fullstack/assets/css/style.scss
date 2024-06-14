@@ -687,7 +687,8 @@ a:focus {
       z-index: 999;
       border-radius: 15px;
       top: 80px;
-      box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2),
+      box-shadow:
+        0 4px 8px 0 rgba(0, 0, 0, 0.2),
         0 6px 20px 0 rgba(0, 0, 0, 0.19);
       display: none;
 
@@ -838,10 +839,7 @@ a:focus {
 
   .container {
     &.other {
-      background-image: linear-gradient(
-          rgba($color: black, $alpha: 0.89),
-          rgba($color: black, $alpha: 0.89)
-        ),
+      background-image: linear-gradient(rgba($color: black, $alpha: 0.89), rgba($color: black, $alpha: 0.89)),
         url(../images/ash-gerlach-6fF-Ojxov6o-unsplash.jpg);
       background-repeat: no-repeat;
       background-size: cover;
@@ -948,10 +946,7 @@ a:focus {
 .course_section {
   position: relative;
   color: $white;
-  background-image: linear-gradient(
-      rgba($color: $black, $alpha: 0.89),
-      rgba($color: $black, $alpha: 0.89)
-    ),
+  background-image: linear-gradient(rgba($color: $black, $alpha: 0.89), rgba($color: $black, $alpha: 0.89)),
     url("../images/course-bg.jpg");
   background-repeat: no-repeat;
   background-size: cover;
@@ -1663,28 +1658,6 @@ a:focus {
   }
 
   .form__section {
-    .error-message-login {
-      background-color: $error;
-      color: $white;
-      font-size: 1rem;
-      text-align: center;
-      padding: 1rem;
-      margin: 30px 0;
-      width: 100%;
-      border-radius: 10px;
-    }
-
-    .success-message-login {
-      background-color: $secondaryColor;
-      color: $white;
-      font-size: 1rem;
-      text-align: center;
-      padding: 1rem;
-      margin: 30px 0;
-      width: 100%;
-      border-radius: 10px;
-    }
-
     .input__forms__login {
       .div {
         .email__div {
@@ -1701,20 +1674,6 @@ a:focus {
             border-radius: 10px;
             outline: none;
             border: 1px solid $secondaryColor;
-
-            &.input-error {
-              border: 1px solid $error;
-              &:focus {
-                border: 1px solid $error;
-              }
-            }
-
-            &.input-success {
-              border: 1px solid $secondaryColor;
-              &:focus {
-                border: 1px solid $secondaryColor;
-              }
-            }
           }
         }
       }
@@ -1736,29 +1695,20 @@ a:focus {
           border-radius: 10px;
           outline: none;
           border: 1px solid $secondaryColor;
-
-          &.input-error {
-            border: 1px solid $error;
-            &:focus {
-              border: 1px solid $error;
-            }
-          }
-
-          &.input-success {
-            border: 1px solid $secondaryColor;
-            &:focus {
-              border: 1px solid $secondaryColor;
-            }
-          }
         }
       }
 
       .check {
         display: flex;
-        justify-content: center;
+        justify-content: space-between;
         flex-direction: row;
         align-items: center;
         margin-top: 5px;
+
+        .forgot-password {
+          color: $secondaryColor;
+          font-weight: 700;
+        }
       }
     }
 
@@ -1981,7 +1931,8 @@ a:focus {
       display: none;
 
       .logged {
-        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2),
+        box-shadow:
+          0 4px 8px 0 rgba(0, 0, 0, 0.2),
           0 6px 20px 0 rgba(0, 0, 0, 0.19);
         // clip-path: polygon(0 100%, 100% 100%, 100% 36%, 79% 36%, 65% 21%, 57% 36%, 0 38%);
 

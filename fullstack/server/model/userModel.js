@@ -19,7 +19,7 @@ const formSchema = new mongoose.Schema(
     phoneNumber: {
       type: String,
       required: true,
-      unique: true, // Ensure this field is unique
+      unique: true,
     },
     location: {
       type: String,

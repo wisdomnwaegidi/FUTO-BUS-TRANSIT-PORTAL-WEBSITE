@@ -18,10 +18,10 @@
   font-weight: bold;
 }
 
-body {
+/* body {
   background-color: $background-color;
   font-family: $font-family;
-}
+} */
 
 .container {
   margin-top: 50px;
@@ -65,5 +65,38 @@ body {
 
   &:hover {
     background-color: $btn-bg-hover;
+  }
+}
+
+.fgtpword-container {
+  width: 20%;
+  margin: 5rem auto;
+
+  label {
+    display: block;
+    text-align: center;
+    font-weight: bold;
+
+    input {
+      display: block;
+      padding: 10px;
+      border-radius: 10px;
+      outline: none;
+      border: 1px solid $secondaryColor;
+      width: 100%;
+    }
+  }
+
+  .pwordbtn {
+    width: 100%;
+    padding: 15px;
+    background: $secondaryColor;
+    color: $white;
+    outline: none;
+    border: none;
+    margin: 20px 0;
+    font-size: 1rem;
+    font-weight: 600;
+    border-radius: 10px;
   }
 }
